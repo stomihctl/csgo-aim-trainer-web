@@ -1,0 +1,102 @@
+{#{% extends 'base.html' %}#}
+{#{% block title%}<title>CS2 Trainer — Trainer Attributes</title>{% endblock %}#}
+{#{% block links %}#}
+{#    {% load static %}#}
+{#    <link rel="stylesheet" href="{% static 'styles/attributesInput.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'styles/login.css' %}">#}
+{#{% endblock %}#}
+{#{% block scripts %}#}
+{#    <script src="{% static 'scripts/attributesInput.js' %}"></script>#}
+{#{% endblock %}#}
+{#{% block content %}#}
+{#    <main class="card" role="main" aria-labelledby="page-title">#}
+{#    <h1 id="page-title">Trainer: Enter Your Attributes</h1>#}
+{#    <form id="attributes-form" novalidate>#}
+{#      <div>#}
+{#        <label for="expertise">Area of Expertise</label>#}
+{#        <select id="expertise" name="expertise" required aria-required="true">#}
+{#          <option value="" disabled selected>Select your expertise</option>#}
+{#          <option value="shooting">Shooting</option>#}
+{#          <option value="utility">Utility</option>#}
+{#          <option value="game_sense">Game Sense</option>#}
+{#        </select>#}
+{#      </div>#}
+{#      <div>#}
+{#        <label for="availability">Availability</label>#}
+{#        <select id="availability" name="availability" required aria-required="true">#}
+{#          <option value="" disabled selected>Select availability</option>#}
+{#          <option value="available">Available</option>#}
+{#          <option value="not_available">Not Available</option>#}
+{#        </select>#}
+{#      </div>#}
+{#      <div>#}
+{#        <label>Niveaus of Players You Coach (Select all that apply)</label>#}
+{#        <div class="checkbox-group" role="group" aria-labelledby="niveaus-label">#}
+{#          <label><input type="checkbox" name="levels" value="beginner" /> Beginner</label>#}
+{#          <label><input type="checkbox" name="levels" value="intermediate" /> Intermediate</label>#}
+{#          <label><input type="checkbox" name="levels" value="advanced" /> Advanced</label>#}
+{#        </div>#}
+{#      </div>#}
+{#      <div class="actions">#}
+{#        <button type="submit" class="btn-save" disabled>Save</button>#}
+{#        <button type="button" class="btn-cancel" id="btn-cancel">Cancel</button>#}
+{#      </div>#}
+{#      <div id="form-message" class="message" role="alert" aria-live="assertive"></div>#}
+{#    </form>#}
+{#  </main>#}
+{#{% endblock %}#}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CS2 Trainer — Trainer Attributes</title>
+{% load static %}
+    <link rel="stylesheet" href="{% static 'styles/attributesInput.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/login.css' %}">
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="page-title">
+    <h1 id="page-title">Trainer: Enter Your Attributes</h1>
+    <form id="attributes-form" novalidate>
+      <div>
+        <label for="expertise">Area of Expertise</label>
+        <select id="expertise" name="expertise" required aria-required="true">
+          <option value="" disabled selected>Select your expertise</option>
+          <option value="shooting">Shooting</option>
+          <option value="utility">Utility</option>
+          <option value="game_sense">Game Sense</option>
+        </select>
+      </div>
+      <div>
+        <label for="availability">Availability</label>
+        <select id="availability" name="availability" required aria-required="true">
+          <option value="" disabled selected>Select availability</option>
+          <option value="available">Available</option>
+          <option value="not_available">Not Available</option>
+        </select>
+      </div>
+      <div>
+        <label>Niveaus of Players You Coach (Select all that apply)</label>
+        <div class="checkbox-group" role="group" aria-labelledby="niveaus-label">
+          <label><input type="checkbox" name="levels" value="beginner" /> Beginner</label>
+          <label><input type="checkbox" name="levels" value="intermediate" /> Intermediate</label>
+          <label><input type="checkbox" name="levels" value="advanced" /> Advanced</label>
+        </div>
+      </div>
+      <div class="actions">
+        <button type="submit" class="btn-save" disabled>Save</button>
+        <button type="button" class="btn-cancel" id="btn-cancel">Cancel</button>
+      </div>
+      <div id="form-message" class="message" role="alert" aria-live="assertive"></div>
+    </form>
+  </main>
+
+  <script src="{% static 'scripts/attributesInput.js' %}"></script>
+</body>
+</html>
+
+

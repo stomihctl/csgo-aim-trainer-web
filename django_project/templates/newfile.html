@@ -1,0 +1,1825 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#<meta charset="UTF-8" />#}
+{#<meta name="viewport" content="width=device-width, initial-scale=1" />#}
+{#<title>CS2 Trainer — Admin Account Removal</title>#}
+{#<style>#}
+{#  :root {#}
+{#    --bg: #0f1115;#}
+{#    --panel: #151923;#}
+{#    --panel-2: #1b2030;#}
+{#    --text: #e8ecf1;#}
+{#    --muted: #a8b0bd;#}
+{#    --primary: #6ea8ff;#}
+{#    --primary-2: #2e6fff;#}
+{#    --danger: #ef4444;#}
+{#    --success: #22c55e;#}
+{#    --radius: 16px;#}
+{#    --shadow: 0 10px 30px rgba(0,0,0,.35);#}
+{#  }#}
+{#  * { box-sizing: border-box; }#}
+{#  html, body { height: 100%; margin: 0; }#}
+{#  body {#}
+{#    background: radial-gradient(1200px 800px at 10% -10%, #1f2640 0%, transparent 60%),#}
+{#                radial-gradient(900px 600px at 110% 10%, #12233a 0%, transparent 60%),#}
+{#                var(--bg);#}
+{#    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial,#}
+{#      "Apple Color Emoji", "Segoe UI Emoji";#}
+{#    color: var(--text);#}
+{#    display: grid;#}
+{#    place-items: center;#}
+{#    padding: 2rem;#}
+{#  }#}
+{#  .card {#}
+{#    max-width: 460px;#}
+{#    width: 100%;#}
+{#    background: linear-gradient(180deg, var(--panel), var(--panel-2));#}
+{#    border-radius: var(--radius);#}
+{#    box-shadow: var(--shadow);#}
+{#    border: 1px solid rgba(255,255,255,.06);#}
+{#    padding: 1.5rem 2rem 2rem;#}
+{#  }#}
+{#  h1 {#}
+{#    font-weight: 700;#}
+{#    font-size: 1.6rem;#}
+{#    margin-bottom: 1rem;#}
+{#    text-align: center;#}
+{#  }#}
+{#  p {#}
+{#    color: var(--muted);#}
+{#    margin-bottom: 2rem;#}
+{#    font-size: 1rem;#}
+{#  }#}
+{#  label {#}
+{#    display: block;#}
+{#    margin-bottom: 0.5rem;#}
+{#    font-weight: 600;#}
+{#  }#}
+{#  input[type="text"] {#}
+{#    width: 100%;#}
+{#    padding: 0.75rem 1rem;#}
+{#    font-size: 1rem;#}
+{#    border-radius: 12px;#}
+{#    border: 1px solid rgba(255,255,255,.08);#}
+{#    background: rgba(255,255,255,0.06);#}
+{#    color: var(--text);#}
+{#    outline: none;#}
+{#    transition: border-color 0.3s ease, box-shadow 0.3s ease;#}
+{#  }#}
+{#  input[type="text"]:focus {#}
+{#    border-color: var(--primary);#}
+{#    box-shadow: 0 0 0 4px rgba(110,168,255,0.15);#}
+{#  }#}
+{#  button {#}
+{#    width: 100%;#}
+{#    padding: 0.9rem 1rem;#}
+{#    font-weight: 700;#}
+{#    font-size: 1.1rem;#}
+{#    border-radius: 12px;#}
+{#    border: none;#}
+{#    cursor: pointer;#}
+{#    background: var(--danger);#}
+{#    color: white;#}
+{#    box-shadow: 0 10px 24px rgba(239,68,68,0.45);#}
+{#    transition: background 0.3s ease;#}
+{#  }#}
+{#  button:hover {#}
+{#    background: #dc2626;#}
+{#  }#}
+{#  .requests-list {#}
+{#    margin-bottom: 1.5rem;#}
+{#  }#}
+{#  .request-item {#}
+{#    background: rgba(255,255,255,0.05);#}
+{#    padding: 0.8rem 1rem;#}
+{#    margin-bottom: 0.6rem;#}
+{#    border-radius: 10px;#}
+{#    display: flex;#}
+{#    justify-content: space-between;#}
+{#    align-items: center;#}
+{#    font-weight: 600;#}
+{#  }#}
+{#  .request-item button {#}
+{#    background: var(--primary);#}
+{#    box-shadow: 0 10px 24px rgba(110,168,255,0.45);#}
+{#    color: #0b1020;#}
+{#    padding: 0.5rem 1rem;#}
+{#    font-weight: 600;#}
+{#    font-size: 0.9rem;#}
+{#  }#}
+{#  .request-item button:hover {#}
+{#    background: var(--primary-2);#}
+{#  }#}
+{#  .confirmation-dialog {#}
+{#    position: fixed;#}
+{#    inset: 0;#}
+{#    background: rgba(0,0,0,0.75);#}
+{#    display: flex;#}
+{#    justify-content: center;#}
+{#    align-items: center;#}
+{#    visibility: hidden;#}
+{#    opacity: 0;#}
+{#    transition: opacity 0.3s ease;#}
+{#  }#}
+{#  .confirmation-dialog.active {#}
+{#    visibility: visible;#}
+{#    opacity: 1;#}
+{#  }#}
+{#  .dialog-box {#}
+{#    background: var(--panel-2);#}
+{#    padding: 2rem;#}
+{#    border-radius: var(--radius);#}
+{#    max-width: 380px;#}
+{#    width: 90%;#}
+{#    text-align: center;#}
+{#    box-shadow: var(--shadow);#}
+{#    color: var(--text);#}
+{#  }#}
+{#  .dialog-box p {#}
+{#    font-size: 1.1rem;#}
+{#    margin-bottom: 1.5rem;#}
+{#  }#}
+{#  .dialog-actions {#}
+{#    display: flex;#}
+{#    justify-content: center;#}
+{#    gap: 1rem;#}
+{#  }#}
+{#  .dialog-actions button {#}
+{#    flex: 1;#}
+{#    font-weight: 700;#}
+{#    font-size: 1rem;#}
+{#    border-radius: 12px;#}
+{#    padding: 0.8rem 0;#}
+{#  }#}
+{#  .btn-yes {#}
+{#    background: var(--danger);#}
+{#    color: white;#}
+{#    box-shadow: 0 10px 24px rgba(239,68,68,0.45);#}
+{#  }#}
+{#  .btn-yes:hover {#}
+{#    background: #dc2626;#}
+{#  }#}
+{#  .btn-no {#}
+{#    background: var(--muted);#}
+{#    color: var(--panel-2);#}
+{#  }#}
+{#  .btn-no:hover {#}
+{#    background: #8a94a6;#}
+{#  }#}
+{#  .message {#}
+{#    margin-top: 1rem;#}
+{#    text-align: center;#}
+{#    font-weight: 600;#}
+{#  }#}
+{#  .message.success {#}
+{#    color: var(--success);#}
+{#  }#}
+{#  .message.error {#}
+{#    color: var(--danger);#}
+{#  }#}
+{#</style>#}
+{#</head>#}
+{#<body>#}
+{#  <main class="card" role="main" aria-labelledby="page-title">#}
+{#    <h1 id="page-title">Admin: Remove User Account</h1>#}
+{#    <p>This page allows administrators to process user account removal requests or delete accounts manually.</p>#}
+{##}
+{#    <section aria-label="Account deletion requests">#}
+{#      <h2 style="color: var(--muted); margin-bottom: 0.8rem;">Pending Deletion Requests</h2>#}
+{#      <div class="requests-list" id="requests-list" aria-live="polite">#}
+{#        <!-- Requests will be dynamically inserted here -->#}
+{#      </div>#}
+{#    </section>#}
+{##}
+{#    <section aria-label="Manual account deletion">#}
+{#      <form id="manual-delete-form" autocomplete="off">#}
+{#        <label for="manual-username">Enter username to delete manually:</label>#}
+{#        <input type="text" id="manual-username" name="manual-username" placeholder="Username" required aria-required="true" />#}
+{#        <button type="submit">Delete Account</button>#}
+{#      </form>#}
+{#    </section>#}
+{##}
+{#    <div id="message" class="message" role="alert" aria-live="assertive"></div>#}
+{#  </main>#}
+{##}
+{#  <!-- Confirmation dialog -->#}
+{#  <div class="confirmation-dialog" id="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-desc" tabindex="-1">#}
+{#    <div class="dialog-box">#}
+{#      <p id="confirm-desc">Are you sure you want to delete the account "<span id="confirm-username"></span>"?</p>#}
+{#      <div class="dialog-actions">#}
+{#        <button class="btn-yes" id="confirm-yes">YES</button>#}
+{#        <button class="btn-no" id="confirm-no">NO</button>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+{##}
+{#<script>#}
+{#  // Sample pending deletion requests#}
+{#  let pendingRequests = [#}
+{#    'player123',#}
+{#    'cheater99',#}
+{#    'inactive_user',#}
+{#  ];#}
+{##}
+{#  const requestsList = document.getElementById('requests-list');#}
+{#  const manualForm = document.getElementById('manual-delete-form');#}
+{#  const messageBox = document.getElementById('message');#}
+{#  const confirmDialog = document.getElementById('confirm-dialog');#}
+{#  const confirmUsernameSpan = document.getElementById('confirm-username');#}
+{#  const confirmYesBtn = document.getElementById('confirm-yes');#}
+{#  const confirmNoBtn = document.getElementById('confirm-no');#}
+{##}
+{#  let usernameToDelete = null;#}
+{##}
+{#  // Render the pending deletion requests list#}
+{#  function renderRequests() {#}
+{#    requestsList.innerHTML = '';#}
+{#    if (pendingRequests.length === 0) {#}
+{#      requestsList.innerHTML = '<p style="color: var(--muted); font-style: italic;">No pending requests.</p>';#}
+{#      return;#}
+{#    }#}
+{#    pendingRequests.forEach(username => {#}
+{#      const div = document.createElement('div');#}
+{#      div.className = 'request-item';#}
+{#      div.textContent = username;#}
+{#      const btn = document.createElement('button');#}
+{#      btn.textContent = 'Delete';#}
+{#      btn.setAttribute('aria-label', `Delete account ${username}`);#}
+{#      btn.addEventListener('click', () => confirmDeletion(username));#}
+{#      div.appendChild(btn);#}
+{#      requestsList.appendChild(div);#}
+{#    });#}
+{#  }#}
+{##}
+{#  // Show confirmation dialog#}
+{#  function confirmDeletion(username) {#}
+{#    usernameToDelete = username;#}
+{#    confirmUsernameSpan.textContent = username;#}
+{#    confirmDialog.classList.add('active');#}
+{#    confirmDialog.focus();#}
+{#  }#}
+{##}
+{#  // Hide confirmation dialog#}
+{#  function closeDialog() {#}
+{#    confirmDialog.classList.remove('active');#}
+{#    usernameToDelete = null;#}
+{#  }#}
+{##}
+{#  // Delete the username from pending requests and show success message#}
+{#  function deleteAccount(username) {#}
+{#    // Simulate delete: remove from pendingRequests if exists#}
+{#    pendingRequests = pendingRequests.filter(u => u !== username);#}
+{#    // Also if deleted manually, remove from pendingRequests (if exists)#}
+{#    renderRequests();#}
+{#    messageBox.textContent = `Account "${username}" has been deleted.`;#}
+{#    messageBox.className = 'message success';#}
+{#  }#}
+{##}
+{#  confirmYesBtn.addEventListener('click', () => {#}
+{#    if (usernameToDelete) {#}
+{#      deleteAccount(usernameToDelete);#}
+{#    }#}
+{#    closeDialog();#}
+{#  });#}
+{##}
+{#  confirmNoBtn.addEventListener('click', () => {#}
+{#    closeDialog();#}
+{#  });#}
+{##}
+{#  manualForm.addEventListener('submit', e => {#}
+{#    e.preventDefault();#}
+{#    const usernameInput = manualForm['manual-username'].value.trim();#}
+{#    if (!usernameInput) {#}
+{#      messageBox.textContent = 'Please enter a username.';#}
+{#      messageBox.className = 'message error';#}
+{#      return;#}
+{#    }#}
+{##}
+{#    // Confirm manual deletion#}
+{#    confirmDeletion(usernameInput);#}
+{##}
+{#    // Clear input for better UX, actual deletion happens after confirmation#}
+{#    manualForm.reset();#}
+{#  });#}
+{##}
+{#  // Initial render#}
+{#  renderRequests();#}
+{#</script>#}
+{#</body>#}
+{#</html>#}
+{#<!-- #}
+{#    Author: Your Name#}
+{#    Date: 2025-08-13#}
+{#    Description: Training request scenario page#}
+{#-->#}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#<meta charset="UTF-8" />#}
+{#<meta name="viewport" content="width=device-width, initial-scale=1" />#}
+{#<title>CS2 Trainer — Trainer Attributes</title>#}
+{#<style>#}
+{#  :root {#}
+{#    --bg: #0f1115;#}
+{#    --panel: #151923;#}
+{#    --panel-2: #1b2030;#}
+{#    --text: #e8ecf1;#}
+{#    --muted: #a8b0bd;#}
+{#    --primary: #6ea8ff;#}
+{#    --primary-2: #2e6fff;#}
+{#    --success: #22c55e;#}
+{#    --danger: #ef4444;#}
+{#    --radius: 16px;#}
+{#    --shadow: 0 10px 30px rgba(0,0,0,.35);#}
+{#  }#}
+{#  * { box-sizing: border-box; }#}
+{#  html, body { height: 100%; margin: 0; }#}
+{#  body {#}
+{#    background: radial-gradient(1200px 800px at 10% -10%, #1f2640 0%, transparent 60%),#}
+{#                radial-gradient(900px 600px at 110% 10%, #12233a 0%, transparent 60%),#}
+{#                var(--bg);#}
+{#    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial,#}
+{#      "Apple Color Emoji", "Segoe UI Emoji";#}
+{#    color: var(--text);#}
+{#    display: grid;#}
+{#    place-items: center;#}
+{#    padding: 2rem;#}
+{#  }#}
+{#  .card {#}
+{#    max-width: 480px;#}
+{#    width: 100%;#}
+{#    background: linear-gradient(180deg, var(--panel), var(--panel-2));#}
+{#    border-radius: var(--radius);#}
+{#    box-shadow: var(--shadow);#}
+{#    border: 1px solid rgba(255,255,255,.06);#}
+{#    padding: 2rem;#}
+{#  }#}
+{#  h1 {#}
+{#    font-weight: 700;#}
+{#    font-size: 1.7rem;#}
+{#    margin-bottom: 1.25rem;#}
+{#    text-align: center;#}
+{#  }#}
+{#  form {#}
+{#    display: grid;#}
+{#    gap: 1.3rem;#}
+{#  }#}
+{#  label {#}
+{#    display: block;#}
+{#    font-weight: 600;#}
+{#    margin-bottom: 0.4rem;#}
+{#    color: var(--muted);#}
+{#    user-select: none;#}
+{#  }#}
+{#  select, input[type="checkbox"] {#}
+{#    cursor: pointer;#}
+{#  }#}
+{#  select {#}
+{#    width: 100%;#}
+{#    padding: 0.75rem 1rem;#}
+{#    font-size: 1rem;#}
+{#    border-radius: 12px;#}
+{#    border: 1px solid rgba(255,255,255,.08);#}
+{#    background: rgba(255,255,255,0.06);#}
+{#    color: var(--text);#}
+{#    outline: none;#}
+{#    transition: border-color 0.3s ease, box-shadow 0.3s ease;#}
+{#  }#}
+{#  select:focus {#}
+{#    border-color: var(--primary);#}
+{#    box-shadow: 0 0 0 4px rgba(110,168,255,0.15);#}
+{#  }#}
+{#  .checkbox-group {#}
+{#    display: flex;#}
+{#    gap: 1rem;#}
+{#    flex-wrap: wrap;#}
+{#  }#}
+{#  .checkbox-group label {#}
+{#    font-weight: normal;#}
+{#    color: var(--text);#}
+{#  }#}
+{#  .actions {#}
+{#    display: flex;#}
+{#    gap: 1rem;#}
+{#    margin-top: 1.5rem;#}
+{#  }#}
+{#  button {#}
+{#    flex: 1;#}
+{#    padding: 0.9rem 1rem;#}
+{#    font-weight: 700;#}
+{#    font-size: 1.1rem;#}
+{#    border-radius: 12px;#}
+{#    border: none;#}
+{#    cursor: pointer;#}
+{#    transition: background 0.3s ease;#}
+{#    user-select: none;#}
+{#  }#}
+{#  button:disabled {#}
+{#    opacity: 0.5;#}
+{#    cursor: not-allowed;#}
+{#  }#}
+{#  .btn-save {#}
+{#    background: linear-gradient(180deg, var(--primary), var(--primary-2));#}
+{#    color: white;#}
+{#    box-shadow: 0 10px 24px rgba(46,111,255,0.45);#}
+{#  }#}
+{#  .btn-save:hover:not(:disabled) {#}
+{#    background: var(--primary-2);#}
+{#  }#}
+{#  .btn-cancel {#}
+{#    background: transparent;#}
+{#    border: 1px solid var(--muted);#}
+{#    color: var(--muted);#}
+{#  }#}
+{#  .btn-cancel:hover {#}
+{#    background: var(--muted);#}
+{#    color: var(--panel-2);#}
+{#  }#}
+{#  .message {#}
+{#    margin-top: 1rem;#}
+{#    font-weight: 600;#}
+{#    text-align: center;#}
+{#  }#}
+{#  .message.success {#}
+{#    color: var(--success);#}
+{#  }#}
+{#  .message.error {#}
+{#    color: var(--danger);#}
+{#  }#}
+{#</style>#}
+{#</head>#}
+{#<body>#}
+{#  <main class="card" role="main" aria-labelledby="page-title">#}
+{#    <h1 id="page-title">Trainer: Enter Your Attributes</h1>#}
+{#    <form id="attributes-form" novalidate>#}
+{#      <div>#}
+{#        <label for="expertise">Area of Expertise</label>#}
+{#        <select id="expertise" name="expertise" required aria-required="true">#}
+{#          <option value="" disabled selected>Select your expertise</option>#}
+{#          <option value="shooting">Shooting</option>#}
+{#          <option value="utility">Utility</option>#}
+{#          <option value="game_sense">Game Sense</option>#}
+{#        </select>#}
+{#      </div>#}
+{#      <div>#}
+{#        <label for="availability">Availability</label>#}
+{#        <select id="availability" name="availability" required aria-required="true">#}
+{#          <option value="" disabled selected>Select availability</option>#}
+{#          <option value="available">Available</option>#}
+{#          <option value="not_available">Not Available</option>#}
+{#        </select>#}
+{#      </div>#}
+{#      <div>#}
+{#        <label>Niveaus of Players You Coach (Select all that apply)</label>#}
+{#        <div class="checkbox-group" role="group" aria-labelledby="niveaus-label">#}
+{#          <label><input type="checkbox" name="levels" value="beginner" /> Beginner</label>#}
+{#          <label><input type="checkbox" name="levels" value="intermediate" /> Intermediate</label>#}
+{#          <label><input type="checkbox" name="levels" value="advanced" /> Advanced</label>#}
+{#        </div>#}
+{#      </div>#}
+{#      <div class="actions">#}
+{#        <button type="submit" class="btn-save" disabled>Save</button>#}
+{#        <button type="button" class="btn-cancel" id="btn-cancel">Cancel</button>#}
+{#      </div>#}
+{#      <div id="form-message" class="message" role="alert" aria-live="assertive"></div>#}
+{#    </form>#}
+{#  </main>#}
+{##}
+{#  <script>#}
+{#    const form = document.getElementById('attributes-form');#}
+{#    const saveBtn = form.querySelector('button[type="submit"]');#}
+{#    const cancelBtn = document.getElementById('btn-cancel');#}
+{#    const expertiseSelect = document.getElementById('expertise');#}
+{#    const availabilitySelect = document.getElementById('availability');#}
+{#    const levelCheckboxes = form.querySelectorAll('input[name="levels"]');#}
+{#    const message = document.getElementById('form-message');#}
+{##}
+{#    function validateForm() {#}
+{#      const expertiseValid = expertiseSelect.value !== "";#}
+{#      const availabilityValid = availabilitySelect.value !== "";#}
+{#      const levelsChecked = Array.from(levelCheckboxes).some(cb => cb.checked);#}
+{##}
+{#      // Enable save button only if all required fields are filled and at least one level selected#}
+{#      saveBtn.disabled = !(expertiseValid && availabilityValid && levelsChecked);#}
+{#    }#}
+{##}
+{#    // Add event listeners to validate on change#}
+{#    expertiseSelect.addEventListener('change', validateForm);#}
+{#    availabilitySelect.addEventListener('change', validateForm);#}
+{#    levelCheckboxes.forEach(cb => cb.addEventListener('change', validateForm));#}
+{##}
+{#    form.addEventListener('submit', e => {#}
+{#      e.preventDefault();#}
+{#      if (saveBtn.disabled) return;#}
+{##}
+{#      // Gather data#}
+{#      const expertise = expertiseSelect.value;#}
+{#      const availability = availabilitySelect.value;#}
+{#      const levels = Array.from(levelCheckboxes)#}
+{#        .filter(cb => cb.checked)#}
+{#        .map(cb => cb.value);#}
+{##}
+{#      // Simulate saving to DB - in real app, do AJAX/fetch here#}
+{#      console.log("Saving trainer attributes:", {expertise, availability, levels});#}
+{##}
+{#      message.textContent = "Your attributes have been saved successfully.";#}
+{#      message.className = "message success";#}
+{##}
+{#      // Optionally reset or disable form#}
+{#      form.reset();#}
+{#      validateForm();#}
+{#    });#}
+{##}
+{#    cancelBtn.addEventListener('click', () => {#}
+{#      // Reset form and message, simulate "cancel" action#}
+{#      form.reset();#}
+{#      message.textContent = "You have canceled entering your attributes.";#}
+{#      message.className = "message error";#}
+{#      validateForm();#}
+{#    });#}
+{##}
+{#    // Initial validation on page load#}
+{#    validateForm();#}
+{#  </script>#}
+{#</body>#}
+{#</html>#}
+{#<!-- #}
+{#    Author: Your Name#}
+{#    Date: 2025-08-13#}
+{#    Description: Training request scenario page#}
+{#-->#}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#<meta charset="UTF-8" />#}
+{#<meta name="viewport" content="width=device-width, initial-scale=1.0" />#}
+{#<title>CS2 Trainer - Entry Test</title>#}
+{#<style>#}
+{#    body {#}
+{#        font-family: Arial, sans-serif;#}
+{#        background: linear-gradient(to right, #0f2027, #203a43, #2c5364);#}
+{#        margin: 0;#}
+{#        padding: 0;#}
+{#        color: white;#}
+{#        display: flex;#}
+{#        justify-content: center;#}
+{#        align-items: center;#}
+{#        min-height: 100vh;#}
+{#    }#}
+{#    .container {#}
+{#        background: rgba(0, 0, 0, 0.85);#}
+{#        padding: 25px;#}
+{#        border-radius: 10px;#}
+{#        width: 500px;#}
+{#        box-shadow: 0 4px 15px rgba(0,0,0,0.5);#}
+{#        text-align: center;#}
+{#    }#}
+{#    h2 {#}
+{#        margin-bottom: 15px;#}
+{#    }#}
+{#    .question {#}
+{#        margin-bottom: 20px;#}
+{#        font-size: 18px;#}
+{#        text-align: left;#}
+{#    }#}
+{#    label {#}
+{#        display: block;#}
+{#        margin: 5px 0;#}
+{#        cursor: pointer;#}
+{#    }#}
+{#    button {#}
+{#        background: #1abc9c;#}
+{#        border: none;#}
+{#        padding: 12px 20px;#}
+{#        border-radius: 6px;#}
+{#        cursor: pointer;#}
+{#        color: white;#}
+{#        font-size: 16px;#}
+{#        margin-top: 10px;#}
+{#    }#}
+{#    button:hover {#}
+{#        background: #16a085;#}
+{#    }#}
+{#    #reflex-game {#}
+{#        display: none;#}
+{#        height: 300px;#}
+{#        background: #111;#}
+{#        position: relative;#}
+{#        overflow: hidden;#}
+{#        border-radius: 6px;#}
+{#        margin-bottom: 20px;#}
+{#    }#}
+{#    .target {#}
+{#        width: 30px;#}
+{#        height: 30px;#}
+{#        background: red;#}
+{#        border-radius: 50%;#}
+{#        position: absolute;#}
+{#        cursor: pointer;#}
+{#    }#}
+{#    .result {#}
+{#        margin-top: 20px;#}
+{#        font-size: 18px;#}
+{#    }#}
+{#</style>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#<div class="container">#}
+{#    <h2>CS2 Trainer - Entry Test</h2>#}
+{#    <div id="test-area"></div>#}
+{#    <div id="reflex-game"></div>#}
+{#    <button id="next-btn" onclick="nextQuestion()">Next</button>#}
+{#    <div class="result" id="result"></div>#}
+{#</div>#}
+{##}
+{#<script>#}
+{#const questions = [#}
+{#    {#}
+{#        type: "single",#}
+{#        text: "Which grenade is used to temporarily blind enemies?",#}
+{#        options: ["Flashbang", "Smoke", "Molotov", "HE Grenade"],#}
+{#        answer: [0]#}
+{#    },#}
+{#    {#}
+{#        type: "multi",#}
+{#        text: "Which of the following factors affect aiming accuracy?",#}
+{#        options: ["Movement", "Weapon type", "Time of day", "Recoil"],#}
+{#        answer: [0, 1, 3]#}
+{#    },#}
+{#    {#}
+{#        type: "info",#}
+{#        text: "How many hours per week do you play CS2?",#}
+{#        options: ["Less than 5 hours", "5-10 hours", "10-20 hours", "More than 20 hours"],#}
+{#        answer: null#}
+{#    },#}
+{#    {#}
+{#        type: "reflex",#}
+{#        text: "Click the targets as fast as you can! You have 10 seconds.",#}
+{#        answer: null#}
+{#    }#}
+{#];#}
+{##}
+{#let currentQuestion = 0;#}
+{#let score = 0;#}
+{#let reflexScore = 0;#}
+{#let reflexClicks = 0;#}
+{#let reflexTime = 0;#}
+{#let gameInterval;#}
+{##}
+{#function loadQuestion() {#}
+{#    const area = document.getElementById("test-area");#}
+{#    const game = document.getElementById("reflex-game");#}
+{#    const q = questions[currentQuestion];#}
+{#    area.innerHTML = `<div class="question">${q.text}</div>`;#}
+{#    game.style.display = "none";#}
+{##}
+{#    if (q.type === "single") {#}
+{#        q.options.forEach((opt, i) => {#}
+{#            area.innerHTML += `<label><input type="radio" name="q${currentQuestion}" value="${i}"> ${opt}</label>`;#}
+{#        });#}
+{#    } else if (q.type === "multi") {#}
+{#        q.options.forEach((opt, i) => {#}
+{#            area.innerHTML += `<label><input type="checkbox" name="q${currentQuestion}" value="${i}"> ${opt}</label>`;#}
+{#        });#}
+{#    } else if (q.type === "info") {#}
+{#        q.options.forEach((opt, i) => {#}
+{#            area.innerHTML += `<label><input type="radio" name="q${currentQuestion}" value="${i}"> ${opt}</label>`;#}
+{#        });#}
+{#    } else if (q.type === "reflex") {#}
+{#        area.innerHTML = `<div class="question">${q.text}</div>`;#}
+{#        startReflexGame();#}
+{#    }#}
+{#}#}
+{##}
+{#function nextQuestion() {#}
+{#    const q = questions[currentQuestion];#}
+{#    if (q.type === "single") {#}
+{#        const selected = document.querySelector(`input[name="q${currentQuestion}"]:checked`);#}
+{#        if (selected && parseInt(selected.value) === q.answer[0]) {#}
+{#            score++;#}
+{#        }#}
+{#    } else if (q.type === "multi") {#}
+{#        const selected = Array.from(document.querySelectorAll(`input[name="q${currentQuestion}"]:checked`))#}
+{#                              .map(el => parseInt(el.value));#}
+{#        if (JSON.stringify(selected.sort()) === JSON.stringify(q.answer)) {#}
+{#            score++;#}
+{#        }#}
+{#    } else if (q.type === "reflex") {#}
+{#        score += reflexClicks;#}
+{#    }#}
+{##}
+{#    currentQuestion++;#}
+{#    if (currentQuestion < questions.length) {#}
+{#        loadQuestion();#}
+{#    } else {#}
+{#        showResults();#}
+{#    }#}
+{#}#}
+{##}
+{#function startReflexGame() {#}
+{#    const game = document.getElementById("reflex-game");#}
+{#    game.style.display = "block";#}
+{#    reflexClicks = 0;#}
+{#    let timeLeft = 10;#}
+{##}
+{#    gameInterval = setInterval(() => {#}
+{#        spawnTarget();#}
+{#        timeLeft--;#}
+{#        if (timeLeft <= 0) {#}
+{#            clearInterval(gameInterval);#}
+{#        }#}
+{#    }, 1000);#}
+{##}
+{#    setTimeout(() => {#}
+{#        game.innerHTML = "";#}
+{#        document.getElementById("next-b#}
+{#<!-- #}
+{#    Author: Your Name#}
+{#    Date: 2025-08-13#}
+{#    Description: Training request scenario page#}
+{#-->#}
+{##}
+{##}
+{##}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#  <meta charset="UTF-8" />#}
+{#  <meta name="viewport" content="width=device-width, initial-scale=1" />#}
+{#  <title>CS2 Trainer — Login / Register</title>#}
+{#  <style>#}
+{#    :root {#}
+{#      --bg: #0f1115;#}
+{#      --panel: #151923;#}
+{#      --panel-2: #1b2030;#}
+{#      --text: #e8ecf1;#}
+{#      --muted: #a8b0bd;#}
+{#      --primary: #6ea8ff;#}
+{#      --primary-2: #2e6fff;#}
+{#      --success: #22c55e;#}
+{#      --danger: #ef4444;#}
+{#      --radius: 16px;#}
+{#      --shadow: 0 10px 30px rgba(0,0,0,.35);#}
+{#    }#}
+{#    * { box-sizing: border-box; }#}
+{#    html, body { height: 100%; }#}
+{#    body {#}
+{#      margin: 0;#}
+{#      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial,"Apple Color Emoji","Segoe UI Emoji";#}
+{#      background: radial-gradient(1200px 800px at 10% -10%, #1f2640 0%, transparent 60%),#}
+{#                  radial-gradient(900px 600px at 110% 10%, #12233a 0%, transparent 60%),#}
+{#                  var(--bg);#}
+{#      color: var(--text);#}
+{#      display: grid;#}
+{#      place-items: center;#}
+{#      padding: 2rem;#}
+{#    }#}
+{#    .card {#}
+{#      width: 100%;#}
+{#      max-width: 420px;#}
+{#      background: linear-gradient(180deg, var(--panel), var(--panel-2));#}
+{#      border-radius: var(--radius);#}
+{#      box-shadow: var(--shadow);#}
+{#      border: 1px solid rgba(255,255,255,.06);#}
+{#      overflow: hidden;#}
+{#    }#}
+{#    .header {#}
+{#      padding: 1.25rem 1.25rem 0.5rem;#}
+{#    }#}
+{#    .logo {#}
+{#      display: flex; align-items: center; gap: .6rem;#}
+{#      font-weight: 700; letter-spacing: .5px; font-size: 1.1rem; color: var(--text);#}
+{#    }#}
+{#    .logo .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 16px var(--primary); }#}
+{#    .tabbar {#}
+{#      display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin: 1rem 1.25rem 0; background: rgba(255,255,255,.04); padding: .4rem; border-radius: 999px;#}
+{#    }#}
+{#    .tabbar button {#}
+{#      appearance: none; border: 0; background: transparent; color: var(--muted);#}
+{#      padding: .65rem 1rem; border-radius: 999px; font-weight: 600; cursor: pointer;#}
+{#    }#}
+{#    .tabbar button.active { background: var(--primary); color: #0b1020; box-shadow: 0 8px 20px rgba(110,168,255,.35); }#}
+{#    form { padding: 1.25rem; display: grid; gap: .9rem; }#}
+{#    label { font-size: .9rem; color: var(--muted); display: block; margin-bottom: .35rem; }#}
+{#    input, select {#}
+{#      width: 100%; padding: .8rem .9rem; background: rgba(255,255,255,.06); color: var(--text);#}
+{#      border: 1px solid rgba(255,255,255,.08); border-radius: 12px; outline: none;#}
+{#    }#}
+{#    input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(110,168,255,.15); }#}
+{#    .row { display: flex; gap: .75rem; }#}
+{#    .row > * { flex: 1; }#}
+{#    .actions { display: grid; gap: .6rem; }#}
+{#    .btn {#}
+{#      appearance: none; border: 0; cursor: pointer; border-radius: 12px; padding: .9rem 1rem; font-weight: 700;#}
+{#    }#}
+{#    .btn.primary { background: linear-gradient(180deg, var(--primary), var(--primary-2)); color: white; box-shadow: 0 10px 24px rgba(46,111,255,.45); }#}
+{#    .btn.ghost { background: transparent; color: var(--muted); border: 1px dashed rgba(255,255,255,.15); }#}
+{#    .meta { display: flex; justify-content: space-between; align-items: center; font-size: .85rem; color: var(--muted); }#}
+{#    .meta a { color: var(--primary); text-decoration: none; }#}
+{#    .footnote { text-align: center; font-size: .85rem; color: var(--muted); padding: .75rem 1.25rem 1.25rem; }#}
+{#    .hidden { display: none; }#}
+{#  </style>#}
+{#</head>#}
+{#<body>#}
+{#  <div class="card" role="dialog" aria-labelledby="title">#}
+{#    <div class="header">#}
+{#      <div class="logo" id="title" aria-label="CS2 Trainer">#}
+{#        <span class="dot" aria-hidden="true"></span>#}
+{#        CS2 Trainer — Auth#}
+{#      </div>#}
+{#    </div>#}
+{##}
+{#    <div class="tabbar" role="tablist" aria-label="Auth tabs">#}
+{#      <button id="tab-login" class="active" role="tab" aria-selected="true" aria-controls="panel-login">Sign in</button>#}
+{#      <button id="tab-register" role="tab" aria-selected="false" aria-controls="panel-register">Create account</button>#}
+{#    </div>#}
+{##}
+{#    <!-- LOGIN FORM -->#}
+{#    <form id="panel-login" role="tabpanel" aria-labelledby="tab-login" action="/login" method="POST">#}
+{#      <div>#}
+{#        <label for="login-identifier">Email or username</label>#}
+{#        <input id="login-identifier" name="identifier" type="text" autocomplete="username" required />#}
+{#      </div>#}
+{#      <div>#}
+{#        <label for="login-password">Password</label>#}
+{#        <input id="login-password" name="password" type="password" autocomplete="current-password" required />#}
+{#      </div>#}
+{#      <div>#}
+{#        <label for="login-role">Role</label>#}
+{#        <select id="login-role" name="role" required>#}
+{#          <option value="player">Player</option>#}
+{#          <option value="coach">Coach</option>#}
+{#          <option value="admin">Administrator</option>#}
+{#        </select>#}
+{#      </div>#}
+{#      <div class="meta">#}
+{#        <label style="display:flex; align-items:center; gap:.5rem; cursor:pointer;">#}
+{#          <input type="checkbox" name="remember" value="1" style="width:16px;height:16px;"> Remember me#}
+{#        </label>#}
+{#        <a href="/forgot-password">Forgot password?</a>#}
+{#      </div>#}
+{#      <div class="actions">#}
+{#        <button class="btn primary" type="submit">Sign in</button>#}
+{#        <button class="btn ghost" type="button" id="to-register">First time here? Create an account</button>#}
+{#      </div>#}
+{#      <div class="footnote">By continuing you agree to our Terms & Privacy.</div>#}
+{#    </form>#}
+{##}
+{#    <!-- REGISTER FORM -->#}
+{#    <form id="panel-register" class="hidden" role="tabpanel" aria-labelledby="tab-register" action="/register" method="POST">#}
+{#      <div class="row">#}
+{#        <div>#}
+{#          <label for="reg-username">Username</label>#}
+{#          <input id="reg-username" name="username" type="text" autocomplete="username" required />#}
+{#        </div>#}
+{#        <div>#}
+{#          <label for="reg-role">Role</label>#}
+{#          <select id="reg-role" name="role" required>#}
+{#            <option value="player">Player</option>#}
+{#            <option value="coach">Coach</option>#}
+{#            <option value="admin">Administrator</option>#}
+{#          </select>#}
+{#        </div>#}
+{#      </div>#}
+{#      <div>#}
+{#        <label for="reg-email">Email</label>#}
+{#        <input id="reg-email" name="email" type="email" autocomplete="email" required />#}
+{#      </div>#}
+{#      <div class="row">#}
+{#        <div>#}
+{#          <label for="reg-password">Password</label>#}
+{#          <input id="reg-password" name="password" type="password" autocomplete="new-password" minlength="8" required />#}
+{#        </div>#}
+{#        <div>#}
+{#          <label for="reg-password2">Confirm password</label>#}
+{#          <input id="reg-password2" name="password_confirm" type="password" autocomplete="new-password" minlength="8" required />#}
+{#        </div>#}
+{#      </div>#}
+{#      <div>#}
+{#        <label for="reg-consent" style="display:flex; align-items:center; gap:.5rem; cursor:pointer;">#}
+{#          <input id="reg-consent" type="checkbox" required style="width:16px;height:16px;"> I accept Terms & Privacy Policy#}
+{#        </label>#}
+{#      </div>#}
+{#      <div class="actions">#}
+{#        <button class="btn primary" type="submit">Create account</button>#}
+{#        <button class="btn ghost" type="button" id="to-login">Already have an account? Sign in</button>#}
+{#      </div>#}
+{#      <div class="footnote">We use secure password hashing and HTTPS in production.</div>#}
+{#    </form>#}
+{#  </div>#}
+{##}
+{#  <script>#}
+{#    const tabLogin = document.getElementById('tab-login');#}
+{#    const tabRegister = document.getElementById('tab-register');#}
+{#    const panelLogin = document.getElementById('panel-login');#}
+{#    const panelRegister = document.getElementById('panel-register');#}
+{#    const toRegister = document.getElementById('to-register');#}
+{#    const toLogin = document.getElementById('to-login');#}
+{##}
+{#    function activate(tab) {#}
+{#      const isLogin = tab === 'login';#}
+{#      tabLogin.classList.toggle('active', isLogin);#}
+{#      tabRegister.classList.toggle('active', !isLogin);#}
+{#      tabLogin.setAttribute('aria-selected', String(isLogin));#}
+{#      tabRegister.setAttribute('aria-selected', String(!isLogin));#}
+{#      panelLogin.classList.toggle('hidden', !isLogin);#}
+{#      panelRegister.classList.toggle('hidden', isLogin);#}
+{#    }#}
+{##}
+{#    tabLogin.addEventListener('click', () => activate('login'));#}
+{#    tabRegister.addEventListener('click', () => activate('register'));#}
+{#    toRegister.addEventListener('click', () => activate('register'));#}
+{#    toLogin.addEventListener('click', () => activate('login'));#}
+{##}
+{#    // Simple client-side check for matching passwords on register#}
+{#    document.getElementById('panel-register').addEventListener('submit', function (e) {#}
+{#      const p1 = document.getElementById('reg-password').value;#}
+{#      const p2 = document.getElementById('reg-password2').value;#}
+{#      if (p1 !== p2) {#}
+{#        e.preventDefault();#}
+{#        alert('Passwords do not match.');#}
+{#      }#}
+{#    });#}
+{#  </script>#}
+{#</body>#}
+{#</html>#}
+{#<!-- #}
+{#    Author: Your Name#}
+{#    Date: 2025-08-13#}
+{#    Description: Training request scenario page#}
+{#-->#}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#  <meta charset="UTF-8" />#}
+{#  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>#}
+{#  <title>Weekly Training Request</title>#}
+{#  <style>#}
+{#    body {#}
+{#      font-family: Arial, sans-serif;#}
+{#      background: linear-gradient(to right, #2e8b57, #1e90ff);#}
+{#      display: flex;#}
+{#      justify-content: center;#}
+{#      align-items: center;#}
+{#      height: 100vh;#}
+{#      margin: 0;#}
+{#    }#}
+{##}
+{#    .container {#}
+{#      background: rgba(255, 255, 255, 0.95);#}
+{#      padding: 30px;#}
+{#      border-radius: 10px;#}
+{#      box-shadow: 0px 0px 15px rgba(0,0,0,0.3);#}
+{#      width: 400px;#}
+{#      max-width: 90%;#}
+{#    }#}
+{##}
+{#    h2 {#}
+{#      text-align: center;#}
+{#      color: #333;#}
+{#    }#}
+{##}
+{#    p {#}
+{#      text-align: center;#}
+{#      color: #555;#}
+{#      margin-bottom: 20px;#}
+{#    }#}
+{##}
+{#    .btn {#}
+{#      width: 100%;#}
+{#      padding: 12px;#}
+{#      background-color: #1e90ff;#}
+{#      border: none;#}
+{#      border-radius: 5px;#}
+{#      color: white;#}
+{#      font-size: 16px;#}
+{#      cursor: pointer;#}
+{#      transition: background 0.3s;#}
+{#      margin-bottom: 15px;#}
+{#    }#}
+{##}
+{#    .btn:hover {#}
+{#      background-color: #187bcd;#}
+{#    }#}
+{##}
+{#    .link {#}
+{#      display: block;#}
+{#      text-align: center;#}
+{#      margin-top: 10px;#}
+{#      color: #1e90ff;#}
+{#      text-decoration: none;#}
+{#    }#}
+{##}
+{#    .link:hover {#}
+{#      text-decoration: underline;#}
+{#    }#}
+{##}
+{#    textarea {#}
+{#      width: 100%;#}
+{#      height: 100px;#}
+{#      padding: 10px;#}
+{#      resize: vertical;#}
+{#      border-radius: 5px;#}
+{#      border: 1px solid #ccc;#}
+{#      margin-bottom: 15px;#}
+{#      font-size: 14px;#}
+{#    }#}
+{#  </style>#}
+{#</head>#}
+{#<body>#}
+{#  <div class="container">#}
+{#    <h2>Request Weekly Training</h2>#}
+{#    <p>Click the button below to send a training plan request to your trainer.</p>#}
+{##}
+{#    <button class="btn">Request Weekly Plan</button>#}
+{##}
+{#    <hr style="margin: 20px 0;">#}
+{##}
+{#    <h3>Send Training Feedback</h3>#}
+{#    <p>After completing your training, you can send feedback and statistics to your trainer.</p>#}
+{##}
+{#    <textarea placeholder="Enter your workout stats and feedback..."></textarea>#}
+{#    <button class="btn">Send Feedback</button>#}
+{##}
+{#    <a href="index.html" class="link">Back to Dashboard</a>#}
+{#  </div>#}
+{#</body>#}
+{#</html>#}
+{#<!-- #}
+{#    Author: Your Name#}
+{#    Date: 2025-08-13#}
+{#    Description: Training request scenario page#}
+{#-->#}
+{##}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#<meta charset="UTF-8" />#}
+{#<meta name="viewport" content="width=device-width, initial-scale=1" />#}
+{#<title>CS2 Trainer — Password Reset</title>#}
+{#<style>#}
+{#  body {#}
+{#    font-family: Arial, sans-serif;#}
+{#    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);#}
+{#    margin: 0;#}
+{#    padding: 0;#}
+{#    color: white;#}
+{#    display: flex;#}
+{#    justify-content: center;#}
+{#    align-items: center;#}
+{#    min-height: 100vh;#}
+{#  }#}
+{#  .container {#}
+{#    background: rgba(0, 0, 0, 0.85);#}
+{#    padding: 25px;#}
+{#    border-radius: 10px;#}
+{#    width: 420px;#}
+{#    box-shadow: 0 4px 15px rgba(0,0,0,0.5);#}
+{#    text-align: center;#}
+{#  }#}
+{#  h2 {#}
+{#    margin-bottom: 15px;#}
+{#  }#}
+{#  label {#}
+{#    display: block;#}
+{#    margin: 10px 0 6px;#}
+{#    font-weight: 600;#}
+{#    text-align: left;#}
+{#  }#}
+{#  input {#}
+{#    width: 100%;#}
+{#    padding: 10px 12px;#}
+{#    border-radius: 8px;#}
+{#    border: none;#}
+{#    outline: none;#}
+{#    font-size: 16px;#}
+{#    background: rgba(255, 255, 255, 0.1);#}
+{#    color: white;#}
+{#  }#}
+{#  input:focus {#}
+{#    background: rgba(255, 255, 255, 0.15);#}
+{#  }#}
+{#  button {#}
+{#    margin-top: 20px;#}
+{#    background: #1abc9c;#}
+{#    border: none;#}
+{#    padding: 12px 20px;#}
+{#    border-radius: 8px;#}
+{#    cursor: pointer;#}
+{#    color: white;#}
+{#    font-size: 16px;#}
+{#    font-weight: 700;#}
+{#    width: 100%;#}
+{#  }#}
+{#  button:hover {#}
+{#    background: #16a085;#}
+{#  }#}
+{#  .message {#}
+{#    margin-top: 20px;#}
+{#    font-size: 16px;#}
+{#    color: #22c55e;#}
+{#  }#}
+{#  .error {#}
+{#    color: #ef4444;#}
+{#    margin-top: 10px;#}
+{#    font-weight: 600;#}
+{#  }#}
+{#  .hidden {#}
+{#    display: none;#}
+{#  }#}
+{#  .link-back {#}
+{#    margin-top: 15px;#}
+{#    display: block;#}
+{#    color: #6ea8ff;#}
+{#    cursor: pointer;#}
+{#    text-decoration: underline;#}
+{#    font-size: 14px;#}
+{#  }#}
+{#</style>#}
+{#</head>#}
+{#<body>#}
+{#<div class="container" role="main" aria-labelledby="title">#}
+{#  <h2 id="title">Reset Your Password</h2>#}
+{#  #}
+{#  <form id="request-reset-form" aria-label="Request password reset form">#}
+{#    <label for="email">Enter your registered email address</label>#}
+{#    <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email" />#}
+{#    <button type="submit">Send Reset Link</button>#}
+{#    <div class="error hidden" id="request-error"></div>#}
+{#  </form>#}
+{##}
+{#  <form id="reset-password-form" class="hidden" aria-label="Set new password form">#}
+{#    <label for="new-password">New Password</label>#}
+{#    <input type="password" id="new-password" name="new-password" placeholder="Enter new password" minlength="8" required autocomplete="new-password" />#}
+{#    #}
+{#    <label for="confirm-password">Confirm New Password</label>#}
+{#    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm new password" minlength="8" required autocomplete="new-password" />#}
+{#    #}
+{#    <button type="submit">Confirm New Password</button>#}
+{#    <div class="error hidden" id="reset-error"></div>#}
+{#  </form>#}
+{##}
+{#  <div id="message" class="message hidden" role="alert"></div>#}
+{##}
+{#  <span class="link-back" id="back-to-login">← Back to Login</span>#}
+{#</div>#}
+{##}
+{#<script>#}
+{#  const requestForm = document.getElementById('request-reset-form');#}
+{#  const resetForm = document.getElementById('reset-password-form');#}
+{#  const messageBox = document.getElementById('message');#}
+{#  const requestError = document.getElementById('request-error');#}
+{#  const resetError = document.getElementById('reset-error');#}
+{#  const backToLogin = document.getElementById('back-to-login');#}
+{##}
+{#  // Simulate email sending and showing reset form#}
+{#  requestForm.addEventListener('submit', e => {#}
+{#    e.preventDefault();#}
+{#    requestError.classList.add('hidden');#}
+{#    const email = requestForm.email.value.trim();#}
+{##}
+{#    if (!validateEmail(email)) {#}
+{#      requestError.textContent = 'Please enter a valid email address.';#}
+{#      requestError.classList.remove('hidden');#}
+{#      return;#}
+{#    }#}
+{##}
+{#    // Simulate async email send#}
+{#    messageBox.textContent = '';#}
+{#    requestForm.querySelector('button').disabled = true;#}
+{#    setTimeout(() => {#}
+{#      requestForm.classList.add('hidden');#}
+{#      messageBox.textContent = 'Reset link sent! Please check your email.';#}
+{#      messageBox.classList.remove('hidden');#}
+{#      resetForm.classList.remove('hidden');#}
+{#      requestForm.querySelector('button').disabled = false;#}
+{#    }, 1000);#}
+{#  });#}
+{##}
+{#  // Validate and confirm new password#}
+{#  resetForm.addEventListener('submit', e => {#}
+{#    e.preventDefault();#}
+{#    resetError.classList.add('hidden');#}
+{##}
+{#    const pw1 = resetForm['new-password'].value;#}
+{#    const pw2 = resetForm['confirm-password'].value;#}
+{##}
+{#    if (pw1.length < 8) {#}
+{#      resetError.textContent = 'Password must be at least 8 characters long.';#}
+{#      resetError.classList.remove('hidden');#}
+{#      return;#}
+{#    }#}
+{#    if (pw1 !== pw2) {#}
+{#      resetError.textContent = 'Passwords do not match.';#}
+{#      resetError.classList.remove('hidden');#}
+{#      return;#}
+{#    }#}
+{##}
+{#    resetForm.querySelector('button').disabled = true;#}
+{##}
+{#    // Simulate password update#}
+{#    setTimeout(() => {#}
+{#      resetForm.classList.add('hidden');#}
+{#      messageBox.textContent = 'Password successfully reset! You can now log in with your new password.';#}
+{#      resetForm.querySelector('button').disabled = false;#}
+{#    }, 1000);#}
+{#  });#}
+{##}
+{#  // Simple email format validation#}
+{#  function validateEmail(email) {#}
+{#    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);#}
+{#  }#}
+{##}
+{#  // "Back to login" link (just a placeholder)#}
+{#  backToLogin.addEventListener('click', () => {#}
+{#    alert('Redirecting to login page...');#}
+{#  });#}
+{#</script>#}
+{#</body>#}
+{#</html>#}
+{#<!-- #}
+{#    Author: Your Name#}
+{#    Date: 2025-08-13#}
+{#    Description: Training request scenario page#}
+{#-->#}
+{##}
+{##}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#  <meta charset="UTF-8">#}
+{#  <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#  <title>Request Exercise</title>#}
+{#  <style>#}
+{#    body {#}
+{#      margin: 0;#}
+{#      font-family: Arial, sans-serif;#}
+{#      background: linear-gradient(to right, #1a2a6c, #b21f1f, #fdbb2d);#}
+{#      height: 100vh;#}
+{#      display: flex;#}
+{#      justify-content: center;#}
+{#      align-items: center;#}
+{#    }#}
+{#    .container {#}
+{#      background: rgba(255, 255, 255, 0.9);#}
+{#      padding: 30px;#}
+{#      border-radius: 10px;#}
+{#      width: 350px;#}
+{#      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);#}
+{#      text-align: center;#}
+{#    }#}
+{#    h2 {#}
+{#      margin-bottom: 20px;#}
+{#      color: #333;#}
+{#    }#}
+{#    .btn {#}
+{#      display: block;#}
+{#      width: 100%;#}
+{#      padding: 10px;#}
+{#      margin: 10px 0;#}
+{#      border: none;#}
+{#      border-radius: 5px;#}
+{#      font-size: 16px;#}
+{#      cursor: pointer;#}
+{#      transition: background 0.3s;#}
+{#    }#}
+{#    .btn-primary {#}
+{#      background: #1a73e8;#}
+{#      color: white;#}
+{#    }#}
+{#    .btn-primary:hover {#}
+{#      background: #155bb5;#}
+{#    }#}
+{#    .btn-secondary {#}
+{#      background: #34a853;#}
+{#      color: white;#}
+{#    }#}
+{#    .btn-secondary:hover {#}
+{#      background: #2a8643;#}
+{#    }#}
+{#    .dropdown {#}
+{#      margin: 15px 0;#}
+{#      display: none;#}
+{#    }#}
+{#    select {#}
+{#      padding: 8px;#}
+{#      width: 100%;#}
+{#      border-radius: 5px;#}
+{#      border: 1px solid #ccc;#}
+{#    }#}
+{#    .exercise-details {#}
+{#      margin-top: 20px;#}
+{#      text-align: left;#}
+{#      font-size: 14px;#}
+{#      color: #333;#}
+{#      background: #f7f7f7;#}
+{#      padding: 10px;#}
+{#      border-radius: 5px;#}
+{#      display: none;#}
+{#    }#}
+{#  </style>#}
+{#</head>#}
+{#<body>#}
+{#  <div class="container">#}
+{#    <h2>Request Exercise</h2>#}
+{##}
+{#    <button class="btn btn-primary" id="chooseTypeBtn">Choose Type</button>#}
+{#    <div class="dropdown" id="dropdownMenu">#}
+{#      <select id="exerciseType">#}
+{#        <option value="">-- Select Exercise Type --</option>#}
+{#        <option>Utility</option>#}
+{#        <option>Shooting HS</option>#}
+{#        <option>Counter-Strafe</option>#}
+{#        <option>Pre Aim</option>#}
+{#        <option>Spray</option>#}
+{#        <option>Reaction</option>#}
+{#      </select>#}
+{#      <button class="btn btn-primary" id="confirmType">Confirm Selection</button>#}
+{#    </div>#}
+{##}
+{#    <button class="btn btn-secondary" id="generateBtn">Generate</button>#}
+{##}
+{#    <div class="exercise-details" id="exerciseDetails">#}
+{#      <strong>Exercise:</strong> <span id="exerciseName"></span><br><br>#}
+{#      <strong>Description:</strong>#}
+{#      <p id="exerciseDesc"></p>#}
+{#    </div>#}
+{#  </div>#}
+{##}
+{#  <script>#}
+{#    const chooseTypeBtn = document.getElementById("chooseTypeBtn");#}
+{#    const dropdownMenu = document.getElementById("dropdownMenu");#}
+{#    const confirmType = document.getElementById("confirmType");#}
+{#    const exerciseType = document.getElementById("exerciseType");#}
+{#    const generateBtn = document.getElementById("generateBtn");#}
+{#    const exerciseDetails = document.getElementById("exerciseDetails");#}
+{#    const exerciseName = document.getElementById("exerciseName");#}
+{#    const exerciseDesc = document.getElementById("exerciseDesc");#}
+{##}
+{#    const descriptions = {#}
+{#      "Utility": "Practice throwing grenades and other utility items efficiently.",#}
+{#      "Shooting HS": "Aim for headshots to improve precision shooting skills.",#}
+{#      "Counter-Strafe": "Master stopping movement before shooting for better accuracy.",#}
+{#      "Pre Aim": "Position your crosshair before entering sightlines.",#}
+{#      "Spray": "Control weapon recoil for better accuracy in sustained fire.",#}
+{#      "Reaction": "Improve reaction times with quick target acquisition."#}
+{#    };#}
+{##}
+{#    chooseTypeBtn.addEventListener("click", () => {#}
+{#      dropdownMenu.style.display = "block";#}
+{#      exerciseDetails.style.display = "none";#}
+{#    });#}
+{##}
+{#    confirmType.addEventListener("click", () => {#}
+{#      if (exerciseType.value) {#}
+{#        exerciseName.textContent = exerciseType.value;#}
+{#        exerciseDesc.textContent = descriptions[exerciseType.value];#}
+{#        exerciseDetails.style.display = "block";#}
+{#      }#}
+{#    });#}
+{##}
+{#    generateBtn.addEventListener("click", () => {#}
+{#      const types = Object.keys(descriptions);#}
+{#      const randomType = types[Math.floor(Math.random() * types.length)];#}
+{#      exerciseName.textContent = randomType;#}
+{#      exerciseDesc.textContent = descriptions[randomType];#}
+{#      exerciseDetails.style.display = "block";#}
+{#      dropdownMenu.style.display = "none";#}
+{#    });#}
+{#  </script>#}
+{#</body>#}
+{#</html>#}
+{#<!-- #}
+{#    Author: Your Name#}
+{#    Date: 2025-08-13#}
+{#    Description: Training request scenario page#}
+{#-->#}
+{##}
+{##}
+{##}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#  <meta charset="UTF-8">#}
+{#  <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#  <title>Find a Trainer - CS2 Trainer</title>#}
+{#  <style>#}
+{#    body {#}
+{#      margin: 0;#}
+{#      font-family: Arial, sans-serif;#}
+{#      background: linear-gradient(to bottom right, #0f172a, #1e293b);#}
+{#      color: white;#}
+{#    }#}
+{#    header {#}
+{#      background: rgba(0, 0, 0, 0.4);#}
+{#      padding: 15px 30px;#}
+{#      text-align: center;#}
+{#      font-size: 1.5em;#}
+{#      font-weight: bold;#}
+{#      border-bottom: 2px solid #3b82f6;#}
+{#    }#}
+{#    .container {#}
+{#      max-width: 1000px;#}
+{#      margin: 30px auto;#}
+{#      padding: 20px;#}
+{#      background: rgba(255, 255, 255, 0.05);#}
+{#      border-radius: 10px;#}
+{#      box-shadow: 0 0 20px rgba(0,0,0,0.5);#}
+{#    }#}
+{#    h2 {#}
+{#      margin-top: 0;#}
+{#      border-bottom: 2px solid #3b82f6;#}
+{#      padding-bottom: 10px;#}
+{#    }#}
+{#    .filters {#}
+{#      display: flex;#}
+{#      flex-wrap: wrap;#}
+{#      gap: 10px;#}
+{#      margin-bottom: 20px;#}
+{#    }#}
+{#    .filters select, .filters input {#}
+{#      padding: 8px;#}
+{#      border: none;#}
+{#      border-radius: 5px;#}
+{#      outline: none;#}
+{#    }#}
+{#    .trainer-list {#}
+{#      display: grid;#}
+{#      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));#}
+{#      gap: 20px;#}
+{#    }#}
+{#    .trainer-card {#}
+{#      background: rgba(0,0,0,0.3);#}
+{#      border-radius: 8px;#}
+{#      padding: 15px;#}
+{#      text-align: center;#}
+{#      border: 1px solid rgba(255,255,255,0.1);#}
+{#    }#}
+{#    .trainer-card h3 {#}
+{#      margin: 10px 0;#}
+{#    }#}
+{#    .trainer-card p {#}
+{#      font-size: 0.9em;#}
+{#      color: #cbd5e1;#}
+{#    }#}
+{#    .btn {#}
+{#      display: inline-block;#}
+{#      margin-top: 10px;#}
+{#      padding: 8px 15px;#}
+{#      border: none;#}
+{#      border-radius: 5px;#}
+{#      cursor: pointer;#}
+{#      font-weight: bold;#}
+{#      transition: background 0.3s ease;#}
+{#    }#}
+{#    .btn-contact {#}
+{#      background: #3b82f6;#}
+{#      color: white;#}
+{#    }#}
+{#    .btn-contact:hover {#}
+{#      background: #2563eb;#}
+{#    }#}
+{#    .btn-cancel {#}
+{#      background: #ef4444;#}
+{#      color: white;#}
+{#    }#}
+{#    .btn-cancel:hover {#}
+{#      background: #dc2626;#}
+{#    }#}
+{#  </style>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#<header>#}
+{#  CS2 Trainer - Find Your Coach#}
+{#</header>#}
+{##}
+{#<div class="container">#}
+{#  <h2>Trainer Search</h2>#}
+{##}
+{#  <div class="filters">#}
+{#    <select>#}
+{#      <option>Specialization</option>#}
+{#      <option>Aiming</option>#}
+{#      <option>Strategy</option>#}
+{#      <option>Team Play</option>#}
+{#    </select>#}
+{#    <select>#}
+{#      <option>Price per Hour</option>#}
+{#      <option>Low to High</option>#}
+{#      <option>High to Low</option>#}
+{#    </select>#}
+{#    <select>#}
+{#      <option>Language</option>#}
+{#      <option>English</option>#}
+{#      <option>Serbian</option>#}
+{#      <option>German</option>#}
+{#    </select>#}
+{#    <select>#}
+{#      <option>Availability</option>#}
+{#      <option>Morning</option>#}
+{#      <option>Afternoon</option>#}
+{#      <option>Evening</option>#}
+{#    </select>#}
+{#    <input type="text" placeholder="Search by name">#}
+{#  </div>#}
+{##}
+{#  <div class="trainer-list">#}
+{#    <div class="trainer-card">#}
+{#      <h3>John Smith</h3>#}
+{#      <p>Specialization: Aiming</p>#}
+{#      <p>Price: $20/hr</p>#}
+{#      <p>Language: English</p>#}
+{#      <button class="btn btn-contact">Contact Trainer</button>#}
+{#      <button class="btn btn-cancel">Cancel</button>#}
+{#    </div>#}
+{#    <div class="trainer-card">#}
+{#      <h3>Marko Petrović</h3>#}
+{#      <p>Specialization: Strategy</p>#}
+{#      <p>Price: $15/hr</p>#}
+{#      <p>Language: Serbian</p>#}
+{#      <button class="btn btn-contact">Contact Trainer</button>#}
+{#      <button class="btn btn-cancel">Cancel</button>#}
+{#    </div>#}
+{#    <div class="trainer-card">#}
+{#      <h3>Anna Müller</h3>#}
+{#      <p>Specialization: Team Play</p>#}
+{#      <p>Price: $25/hr</p>#}
+{#      <p>Language: German</p>#}
+{#      <button class="btn btn-contact">Contact Trainer</button>#}
+{#      <button class="btn btn-cancel">Cancel</button>#}
+{#    </div>#}
+{#  </div>#}
+{#</div>#}
+{##}
+{#</body>#}
+{#</html>#}
+{#<!-- #}
+{#    Author: Your Name#}
+{#    Date: 2025-08-13#}
+{#    Description: Training request scenario page#}
+{#-->#}
+{##}
+{##}
+{##}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#  <meta charset="UTF-8" />#}
+{#  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>#}
+{#  <title>Generate Weekly Plan</title>#}
+{#  <style>#}
+{#    body {#}
+{#      font-family: Arial, sans-serif;#}
+{#      background: linear-gradient(135deg, #4e73df, #1cc88a);#}
+{#      display: flex;#}
+{#      justify-content: center;#}
+{#      align-items: center;#}
+{#      height: 100vh;#}
+{#      margin: 0;#}
+{#    }#}
+{#    .plan-container {#}
+{#      background: white;#}
+{#      padding: 30px;#}
+{#      border-radius: 10px;#}
+{#      width: 400px;#}
+{#      box-shadow: 0 4px 10px rgba(0,0,0,0.2);#}
+{#      text-align: center;#}
+{#    }#}
+{#    h2 {#}
+{#      margin-bottom: 15px;#}
+{#      color: #333;#}
+{#    }#}
+{#    .day-label {#}
+{#      font-weight: bold;#}
+{#      margin-bottom: 10px;#}
+{#    }#}
+{#    textarea {#}
+{#      width: 100%;#}
+{#      height: 100px;#}
+{#      padding: 10px;#}
+{#      font-size: 14px;#}
+{#      border-radius: 5px;#}
+{#      border: 1px solid #ccc;#}
+{#      resize: none;#}
+{#      margin-bottom: 20px;#}
+{#    }#}
+{#    .button-row {#}
+{#      display: flex;#}
+{#      justify-content: space-between;#}
+{#    }#}
+{#    button {#}
+{#      padding: 10px 15px;#}
+{#      font-size: 14px;#}
+{#      border: none;#}
+{#      border-radius: 5px;#}
+{#      cursor: pointer;#}
+{#      color: white;#}
+{#      background-color: #4e73df;#}
+{#      transition: background-color 0.2s ease;#}
+{#    }#}
+{#    button:hover {#}
+{#      background-color: #3752b0;#}
+{#    }#}
+{#    .cancel {#}
+{#      background-color: #e74a3b;#}
+{#    }#}
+{#    .cancel:hover {#}
+{#      background-color: #b83a2f;#}
+{#    }#}
+{#    .finish {#}
+{#      background-color: #1cc88a;#}
+{#    }#}
+{#    .finish:hover {#}
+{#      background-color: #17a673;#}
+{#    }#}
+{#  </style>#}
+{#</head>#}
+{#<body>#}
+{#  <div class="plan-container">#}
+{#    <h2>Weekly Plan Generator</h2>#}
+{#    <div class="day-label" id="day-label">Day 1: Monday</div>#}
+{#    <textarea id="exercise-input" placeholder="Enter exercise for this day..."></textarea>#}
+{#    <div class="button-row">#}
+{#      <button class="cancel" onclick="cancelPlan()">Cancel</button>#}
+{#      <button id="next-btn" onclick="nextDay()">Next</button>#}
+{#    </div>#}
+{#  </div>#}
+{##}
+{#  <script>#}
+{#    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];#}
+{#    let currentDayIndex = 0;#}
+{#    let plan = {};#}
+{##}
+{#    function updateDayLabel() {#}
+{#      document.getElementById('day-label').textContent = `Day ${currentDayIndex + 1}: ${days[currentDayIndex]}`;#}
+{#      document.getElementById('exercise-input').value = plan[days[currentDayIndex]] || "";#}
+{#      const nextBtn = document.getElementById('next-btn');#}
+{#      nextBtn.textContent = currentDayIndex === days.length - 1 ? "Finish" : "Next";#}
+{#      nextBtn.className = currentDayIndex === days.length - 1 ? "finish" : "";#}
+{#    }#}
+{##}
+{#    function nextDay() {#}
+{#      plan[days[currentDayIndex]] = document.getElementById('exercise-input').value.trim();#}
+{#      if (currentDayIndex < days.length - 1) {#}
+{#        currentDayIndex++;#}
+{#        updateDayLabel();#}
+{#      } else {#}
+{#        alert("Plan sent to user!\n" + JSON.stringify(plan, null, 2));#}
+{#        // Redirect to home (simulation)#}
+{#        window.location.href = "#home";#}
+{#      }#}
+{#    }#}
+{##}
+{#    function cancelPlan() {#}
+{#      if (confirm("Are you sure you want to cancel the plan?")) {#}
+{#        plan = {};#}
+{#        alert("Plan cancelled. Returning to home.");#}
+{#        window.location.href = "#home";#}
+{#      }#}
+{#    }#}
+{##}
+{#    // Initialize#}
+{#    updateDayLabel();#}
+{#  </script>#}
+{#</body>#}
+{#</html>#}
+{#<!-- #}
+{#    Author: Andrija Ciric#}
+{#-->#}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="sr">#}
+{#<head>#}
+{#  <meta charset="UTF-8" />#}
+{#  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>#}
+{#  <title>Unošenje statistike vežbe</title>#}
+{#  <style>#}
+{#    body {#}
+{#      margin: 0;#}
+{#      font-family: Arial, sans-serif;#}
+{#      background: linear-gradient(135deg, #2c3e50, #4ca1af);#}
+{#      color: white;#}
+{#      display: flex;#}
+{#      justify-content: center;#}
+{#      align-items: flex-start;#}
+{#      min-height: 100vh;#}
+{#      padding-top: 60px;#}
+{#    }#}
+{#    .container {#}
+{#      background-color: rgba(0, 0, 0, 0.7);#}
+{#      padding: 30px;#}
+{#      border-radius: 10px;#}
+{#      max-width: 500px;#}
+{#      width: 100%;#}
+{#      box-shadow: 0 0 20px rgba(0,0,0,0.5);#}
+{#    }#}
+{#    h1 {#}
+{#      text-align: center;#}
+{#      margin-bottom: 20px;#}
+{#    }#}
+{#    label {#}
+{#      display: block;#}
+{#      margin-top: 15px;#}
+{#      font-weight: bold;#}
+{#    }#}
+{#    select, input, textarea, button {#}
+{#      width: 100%;#}
+{#      padding: 10px;#}
+{#      margin-top: 5px;#}
+{#      border-radius: 5px;#}
+{#      border: none;#}
+{#      font-size: 1rem;#}
+{#    }#}
+{#    select, input, textarea {#}
+{#      background: rgba(255, 255, 255, 0.9);#}
+{#      color: black;#}
+{#    }#}
+{#    button {#}
+{#      background-color: #4ca1af;#}
+{#      color: white;#}
+{#      cursor: pointer;#}
+{#      font-weight: bold;#}
+{#      transition: background-color 0.3s;#}
+{#      margin-top: 20px;#}
+{#    }#}
+{#    button:hover {#}
+{#      background-color: #357f89;#}
+{#    }#}
+{#    .message {#}
+{#      margin-top: 15px;#}
+{#      text-align: center;#}
+{#      font-weight: bold;#}
+{#    }#}
+{#  </style>#}
+{#</head>#}
+{#<body>#}
+{#  <div class="container">#}
+{#    <h1>Unošenje statistike vežbe</h1>#}
+{#    <form id="statsForm">#}
+{#      <label for="exercise">Izaberite vežbu</label>#}
+{#      <select id="exercise" required>#}
+{#        <option value="">-- Odaberite vežbu --</option>#}
+{#        <option value="vezba1">Vežba 1 - Sklekovi</option>#}
+{#        <option value="vezba2">Vežba 2 - Trčanje</option>#}
+{#        <option value="vezba3">Vežba 3 - Čučnjevi</option>#}
+{#      </select>#}
+{##}
+{#      <label for="score">Rezultat</label>#}
+{#      <input type="number" id="score" placeholder="Unesite rezultat (npr. broj ponavljanja)" required />#}
+{##}
+{#      <label for="time">Trajanje (u minutima)</label>#}
+{#      <input type="number" id="time" placeholder="Unesite trajanje vežbe" required />#}
+{##}
+{#      <label for="notes">Dodatne napomene (opciono)</label>#}
+{#      <textarea id="notes" rows="3" placeholder="Npr. osećaj nakon vežbe..."></textarea>#}
+{##}
+{#      <button type="submit">Sačuvaj statistiku</button>#}
+{#    </form>#}
+{#    <div class="message" id="message"></div>#}
+{#  </div>#}
+{##}
+{#  <script>#}
+{#    const statsForm = document.getElementById('statsForm');#}
+{#    const message = document.getElementById('message');#}
+{##}
+{#    statsForm.addEventListener('submit', function(e) {#}
+{#      e.preventDefault();#}
+{##}
+{#      const exercise = document.getElementById('exercise').value;#}
+{#      const score = document.getElementById('score').value;#}
+{#      const time = document.getElementById('time').value;#}
+{#      const notes = document.getElementById('notes').value;#}
+{##}
+{#      if (!exercise || !score || !time) {#}
+{#        message.style.color = 'red';#}
+{#        message.textContent = 'Molimo popunite sva obavezna polja.';#}
+{#        return;#}
+{#      }#}
+{##}
+{#      // Simulacija slanja podataka u bazu#}
+{#      const data = {#}
+{#        exercise,#}
+{#        score,#}
+{#        time,#}
+{#        notes#}
+{#      };#}
+{##}
+{#      console.log('Podaci za čuvanje:', data);#}
+{##}
+{#      message.style.color = 'lightgreen';#}
+{#      message.textContent = 'Statistika uspešno sačuvana!';#}
+{##}
+{#      statsForm.reset();#}
+{#    });#}
+{#  </script>#}
+{#</body>#}
+{#</html>#}

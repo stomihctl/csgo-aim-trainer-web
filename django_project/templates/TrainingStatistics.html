@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}<title>Exercise Statistics Entry</title>{% endblock %}
+{% block links %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/trainingStatistics.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/login.css' %}">
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'scripts/trainingStatistics.js' %}"></script>
+{% endblock %}
+{% block navigation %}
+
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Enter Exercise Statistics</h1>
+    <form id="statsForm" method="POST">
+        {% csrf_token %}
+        <label for="exercise">Select Exercise</label>
+        <select name="exercise" id="exercise" required>
+            <option value="" disabled selected>-- Select CS2 Exercise --</option>
+            {% for ex in exercises %}
+                <option value="{{ ex.exerciseid }}" style="color: #0e0e10">{{ ex.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="score">Score</label>
+        <input type="number" name="score" id="score" placeholder="Enter your score (e.g. number of repetitions)" required />
+
+        <label for="time">Duration (in minutes)</label>
+        <input type="number" name="time" id="time" placeholder="Enter duration in minutes" required />
+
+        <label for="notes">Additional Notes (optional)</label>
+        <textarea name="notes" id="notes" rows="3" placeholder="e.g. feeling after session..."></textarea>
+
+        <button type="submit">Save Statistics</button>
+    </form>
+
+    <div class="message" id="message">
+        {% if messages %}
+            {% for message in messages %}
+                <p class="{{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <button type="button" class="back-btn" onclick="window.location.href='/home'">⬅ Back</button>
+</div>
+{% endblock %}

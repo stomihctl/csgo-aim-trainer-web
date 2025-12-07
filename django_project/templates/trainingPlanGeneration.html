@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block title %}<title>Generate Weekly Plan</title>{% endblock %}
+{% block links %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/trainingPlanGeneration.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/login.css' %}">
+{% endblock %}
+{#{% block scripts %}#}
+{#    <script src="{% static 'scripts/trainingPlanGeneration.js' %}"></script>#}
+{#{% endblock %}#}
+{% block content %}
+    <div class="plan-container">
+    <h2>Weekly Plan Generator for {{ player.nickname }}</h2>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      {% for day in days %}
+      <div class="day-block">
+        <h3>{{ day }}</h3>
+        <div class="exercise-row">
+          <label>Exercise:</label>
+          <select name="day_{{ forloop.counter0 }}_exercise">
+            <option value="">-- Select Exercise --</option>
+            {% for ex in exercises %}
+              <option value="{{ ex.exerciseid }}">{{ ex.name }}</option>
+            {% endfor %}
+          </select>
+
+          <label>Sets:</label>
+          <input type="number" name="day_{{ forloop.counter0 }}_sets" min="1">
+
+          <label>Repetitions:</label>
+          <input type="number" name="day_{{ forloop.counter0 }}_reps" min="1">
+        </div>
+      </div>
+      <hr>
+      {% endfor %}
+
+      <div class="button-row">
+        <button type="submit" class="btn primary">Save Plan</button>
+        <button type="button" class="btn cancel" onclick="window.location.href='{% url 'home' %}'">Cancel</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#  <meta charset="UTF-8" />#}
+{#  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>#}
+{#  <title>Generate Weekly Plan</title>#}
+{#  {% load static %}#}
+{#  <link rel="stylesheet" href="{% static 'styles/trainingPlanGeneration.css' %}">#}
+{#  <link rel="stylesheet" href="{% static 'styles/login.css' %}">#}
+{#</head>#}
+{#<body>#}
+{#  <div class="plan-container">#}
+{#    <h2>Weekly Plan Generator for {{ player.nickname }}</h2>#}
+{##}
+{#    <form method="POST">#}
+{#      {% csrf_token %}#}
+{##}
+{#      {% for day in days %}#}
+{#      <div class="day-block">#}
+{#        <h3>{{ day }}</h3>#}
+{#        <div class="exercise-row">#}
+{#          <label>Exercise:</label>#}
+{#          <select name="day_{{ forloop.counter0 }}_exercise">#}
+{#            <option value="">-- Select Exercise --</option>#}
+{#            {% for ex in exercises %}#}
+{#              <option value="{{ ex.id }}">{{ ex.name }}</option>#}
+{#            {% endfor %}#}
+{#          </select>#}
+{##}
+{#          <label>Sets:</label>#}
+{#          <input type="number" name="day_{{ forloop.counter0 }}_sets" min="1">#}
+{##}
+{#          <label>Repetitions:</label>#}
+{#          <input type="number" name="day_{{ forloop.counter0 }}_reps" min="1">#}
+{#        </div>#}
+{#      </div>#}
+{#      <hr>#}
+{#      {% endfor %}#}
+{##}
+{#      <div class="button-row">#}
+{#        <button type="submit" class="btn primary">Save Plan</button>#}
+{#        <button type="button" class="btn cancel" onclick="window.location.href='{% url 'home' %}'">Cancel</button>#}
+{#      </div>#}
+{#    </form>#}
+{#  </div>#}
+{#</body>#}
+{#</html>#}
+

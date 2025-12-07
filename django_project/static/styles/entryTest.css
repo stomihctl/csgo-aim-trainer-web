@@ -1,0 +1,84 @@
+/*Andrija Ciric 2022/0028*/
+/*Djordje Ristic 2022/0120*/
+/* Reset body */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+/* Main content wrapper */
+.main-container {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60px); /* subtract navbar height */
+  padding-top: 60px; /* avoid overlap with fixed navbar */
+}
+
+/* Card / login box */
+.container {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 25px;
+    border-radius: 10px;
+    width: 500px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+/* Headings */
+h2 {
+    margin-bottom: 15px;
+}
+
+/* Questions and labels */
+.question {
+    margin-bottom: 20px;
+    font-size: 18px;
+    text-align: left;
+}
+label {
+    display: block;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+/* Buttons */
+button {
+    background: #1abc9c;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    margin-top: 10px;
+}
+button:hover {
+    background: #16a085;
+}
+
+/* Reflex game */
+#reflex-game {
+    display: none;
+    height: 300px;
+    background: #111;
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+.target {
+    width: 30px;
+    height: 30px;
+    background: red;
+    border-radius: 50%;
+    position: absolute;
+    cursor: pointer;
+}
+.result {
+    margin-top: 20px;
+    font-size: 18px;
+}

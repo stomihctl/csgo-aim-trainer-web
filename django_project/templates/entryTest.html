@@ -1,0 +1,41 @@
+{# Andrija Ciric 2022/0028#}
+{# Djordje Ristic 2022/0120#}
+{% extends 'base.html' %}
+
+{% block title %}
+<title>CS2 Trainer - Entry Test</title>
+{% endblock %}
+
+{% block links %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/entryTest.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/login.css' %}">
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'scripts/entryTest.js' %}"></script>
+{% endblock %}
+{% block navigation %}
+
+{% endblock %}
+{% block content %}
+<div class="main-container">
+  <div class="container">
+    <h2>CS2 Trainer - Entry Test</h2>
+    <div id="test-area"></div>
+    <div id="reflex-game"></div>
+    <button id="next-btn" onclick="nextQuestion()">Next</button>
+    <div class="result" id="result"></div>
+
+    <form id="entry-test-form" method="POST" action="{% url 'entry_test' %}" style="display:none;">
+      {% csrf_token %}
+      <input type="hidden" name="score" id="score-input">
+      <input type="hidden" name="reflex" id="reflex-input">
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+
+
+

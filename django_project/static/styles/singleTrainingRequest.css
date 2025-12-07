@@ -1,0 +1,70 @@
+/*Djordje Ristic 2022/0120*/
+body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #1a2a6c, #b21f1f, #fdbb2d);
+      height: 100vh;
+      /*display: flex;*/
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      width: 350px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+
+        margin: 30px auto;
+    padding: 20px;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn-primary {
+      background: #1a73e8;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #155bb5;
+    }
+    .btn-secondary {
+      background: #34a853;
+      color: white;
+    }
+    .btn-secondary:hover {
+      background: #2a8643;
+    }
+    .dropdown {
+      margin: 15px 0;
+    }
+    select {
+      padding: 8px;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .exercise-details {
+      margin-top: 20px;
+      text-align: left;
+      font-size: 14px;
+      color: #333;
+      background: #f7f7f7;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    p{
+        color: #111111;
+    }

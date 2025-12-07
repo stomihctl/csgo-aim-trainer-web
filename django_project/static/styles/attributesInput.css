@@ -1,0 +1,128 @@
+/*Djordje Ristic 2022/0120*/
+:root {
+    --bg: #0f1115;
+    --panel: #151923;
+    --panel-2: #1b2030;
+    --text: #e8ecf1;
+    --muted: #a8b0bd;
+    --primary: #6ea8ff;
+    --primary-2: #2e6fff;
+    --success: #22c55e;
+    --danger: #ef4444;
+    --radius: 16px;
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: radial-gradient(1200px 800px at 10% -10%, #1f2640 0%, transparent 60%),
+                radial-gradient(900px 600px at 110% 10%, #12233a 0%, transparent 60%),
+                var(--bg);
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial,
+      "Apple Color Emoji", "Segoe UI Emoji";
+    color: var(--text);
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+  }
+  .card {
+    max-width: 480px;
+    width: 100%;
+    background: linear-gradient(180deg, var(--panel), var(--panel-2));
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255,255,255,.06);
+    padding: 2rem;
+  }
+  h1 {
+    font-weight: 700;
+    font-size: 1.7rem;
+    margin-bottom: 1.25rem;
+    text-align: center;
+  }
+  form {
+    display: grid;
+    gap: 1.3rem;
+  }
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--muted);
+    user-select: none;
+  }
+  select, input[type="checkbox"] {
+    cursor: pointer;
+  }
+  select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(110,168,255,0.15);
+  }
+  .checkbox-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .checkbox-group label {
+    font-weight: normal;
+    color: var(--text);
+  }
+  .actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  button {
+    flex: 1;
+    padding: 0.9rem 1rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    user-select: none;
+  }
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .btn-save {
+    background: linear-gradient(180deg, var(--primary), var(--primary-2));
+    color: white;
+    box-shadow: 0 10px 24px rgba(46,111,255,0.45);
+  }
+  .btn-save:hover:not(:disabled) {
+    background: var(--primary-2);
+  }
+  .btn-cancel {
+    background: transparent;
+    border: 1px solid var(--muted);
+    color: var(--muted);
+  }
+  .btn-cancel:hover {
+    background: var(--muted);
+    color: var(--panel-2);
+  }
+  .message {
+    margin-top: 1rem;
+    font-weight: 600;
+    text-align: center;
+  }
+  .message.success {
+    color: var(--success);
+  }
+  .message.error {
+    color: var(--danger);
+  }

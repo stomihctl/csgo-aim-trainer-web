@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Home - CS2 Training Hub</title>
+{% endblock %}
+
+{% block links %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <div class="messages">
+      {% for message in messages %}
+        <div class="alert {{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+    <div class="card header-card">
+        <h2>Welcome, {{ request.user.username }} 👋</h2>
+        <p class="muted">Role: {{ request.user.role|title }}</p>
+        <p>{{ message }}</p>
+        {% if request.user.role == 'player' %}
+        {% if chosen_trainer %}
+            <div class="trainer-info">
+                Chosen Trainer: <strong>{{ chosen_trainer }}</strong>
+            </div>
+
+            <div class="trainer-actions">
+                <a href="{% url 'trainer_selection' %}" class="btn primary">Change Trainer</a>
+
+                <form method="post" action="{% url 'remove_chosen_trainer' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button class="btn secondary" type="submit">Remove Trainer</button>
+                </form>
+            </div>
+        {% else %}
+            <div class="search-link">
+                <a href="{% url 'trainer_selection' %}" class="btn primary">Find Trainer</a>
+            </div>
+        {% endif %}
+            <div class="player-stats">
+                <h3>Your Stats</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <p>Headshot: <strong>{{ player.headshot }}</strong></p>
+                    </div>
+                    <div class="stat-item">
+                        <p>Counterstrafing: <strong>{{ player.counterstrafing }}</strong></p>
+
+                    </div>
+                    <div class="stat-item">
+                        <p>Spray: <strong>{{ player.spray }}</strong></p>
+
+                    </div>
+                    <div class="stat-item">
+                        <p>Reaction Time: <strong>{{ player.reactiontime }}</strong></p>
+
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="stats">
+        <div class="stat-card"><h3>{{ num_players }}</h3><p>Players</p></div>
+        <div class="stat-card"><h3>{{ num_trainers }}</h3><p>Coaches</p></div>
+        <div class="stat-card"><h3>{{ num_plans }}</h3><p>Weekly Plans</p></div>
+        <div class="stat-card"><h3>{{ avg_price|floatformat:2 }} €</h3><p>Avg. Price</p></div>
+    </div>
+
+    {% if request.user.role == 'coach' %}
+    <div class="card form-card">
+        <h3>My Coaching Profile</h3>
+        <form method="post" action="{% url 'update_trainer_profile' %}">
+            {% csrf_token %}
+            <div class="form-grid">
+                <select name="expertise">
+                    <option value="Aiming" {% if trainer.expertise == "Aiming" %}selected{% endif %}>Aiming</option>
+                    <option value="Strategy" {% if trainer.expertise == "Strategy" %}selected{% endif %}>Strategy</option>
+                    <option value="Team Play" {% if trainer.expertise == "Team Play" %}selected{% endif %}>Team Play</option>
+                </select>
+
+                <select name="language">
+                  <option value="English" {% if trainer_language == "English" %}selected{% endif %}>English</option>
+                  <option value="Serbian" {% if trainer_language == "Serbian" %}selected{% endif %}>Serbian</option>
+                  <option value="German" {% if trainer_language == "German" %}selected{% endif %}>German</option>
+                </select>
+
+                <select name="availability">
+                    <option value="Available" {% if trainer.availability == "Available" %}selected{% endif %}>Available</option>
+                    <option value="Unavailable" {% if trainer.availability == "Unavailable" %}selected{% endif %}>Unavailable</option>
+                </select>
+
+                <select name="level">
+                    <option value="Beginner" {% if trainer.trainerattribute.level == "Beginner" %}selected{% endif %}>Beginner</option>
+                    <option value="Advanced" {% if trainer.trainerattribute.level == "Advanced" %}selected{% endif %}>Advanced</option>
+                </select>
+
+                <input type="number" name="priceperhour" value="{{ trainer.priceperhour }}" placeholder="Price per Hour (€)">
+
+                <button type="submit" class="btn primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="card player-list">
+    <h3>My Players</h3>
+    {% for p, has_request in players_with_requests %}
+    <div class="player-item">
+        <p><strong>{{ p.nickname }}</strong> – Experience: {{ p.level|default:"N/A" }}</p>
+        <p>Headshot: {{ p.headshot }} | Reactiontime: {{ p.reactiontime }} | Counterstrafing: {{ p.counterstrafing }} | Spray: {{ p.spray }}</p>
+
+        {% if has_request %}
+            <a href="{% url 'request_training_plan_for_player' p.playerid.id %}" class="btn primary">Give Training</a>
+        {% else %}
+            <button class="btn secondary" disabled>No Request</button>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+    {% endif %}
+
+    {% if top_trainers %}
+    <div class="card">
+        <h3>Top Coaches</h3>
+        <div class="trainers">
+            {% for t in top_trainers %}
+            <div class="trainer-card">
+                <h4>{{ t.trainerid.username }}</h4>
+                <p>Expertise: {{ t.expertise|default:"-" }}</p>
+                <p>Price: {{ t.priceperhour|default:"-" }} €/h</p>
+                <p>Availability: {{ t.availability|default:"-" }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if week %}
+    <div>
+
+        {% for req in week %}
+            <tr>
+                    <h1>DAY {{ forloop.counter }}</h1>
+                    <h3>Name:</h3>
+                    <td>{{ req.name }}</td>
+                    <h3>Description:</h3>
+                    <td>{{ req.description }}</td>
+                </tr>
+        {% endfor %}
+    </div>
+        <form id="finishPlan" autocomplete="off" method="POST">
+          {% csrf_token %}
+        <button type="submit">Finish</button>
+      </form>
+    {% endif %}
+    <div class="logout-btn">
+        <a href="/logoff" class="btn ghost">Log Out</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block title %}<title>Request Exercise</title>{% endblock %}
+{% block links %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/singleTrainingRequest.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/login.css' %}">
+{% endblock %}
+{#{% block navigation %}{% endblock %}#}
+{% block scripts %}
+    <script src="{% static 'scripts/singleTrainingRequest.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <div class="container">
+    <h2>Request Exercise</h2>
+
+
+    <form id="generate-exercise" autocomplete="off" method="POST">
+          {% csrf_token %}
+
+
+        <div class="dropdown" id="dropdownMenu" >
+      <select id="exerciseType" style="color: #0e0e10" name="exerciseType">
+        <option value="">-- Select Exercise Type --</option>
+        <option value="headshot">Shooting HS</option>
+        <option value="counterstrafing">Counter-Strafe</option>
+        <option value="spray">Spray</option>
+        <option value="reactiontime">Reaction</option>
+      </select>
+{#      <button class="btn btn-primary" id="confirmType">Confirm Selection</button>#}
+    </div>
+
+        <button class="btn btn-secondary" id="generateBtn" type="submit">Generate</button>
+      </form>
+{#    <button class="btn btn-secondary" id="generateBtn">Generate</button>#}
+
+
+        <h2>Exercise:</h2> <span id="exerciseName" style="color: #0e0e10">{{ exercise.name }}</span><br><br>
+      <h2>Description:</h2>
+      <p id="exerciseDesc" style="color: #0e0e10">{{ exercise.description }}</p>
+{#    <div class="exercise-details" >#}
+{#      <strong>Exercise:</strong> <span id="exerciseName">{{ exercise }}</span><br><br>#}
+{#      <strong>Description:</strong>#}
+{#      <p id="exerciseDesc">"ISPISI"</p>#}
+{#    </div>#}
+  </div>
+{% endblock %}
+
+
+
+
+
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#  <meta charset="UTF-8">#}
+{#  <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#  <title>Request Exercise</title>#}
+{#  {% load static %}#}
+{#    <link rel="stylesheet" href="{% static 'styles/singleTrainingRequest.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'styles/login.css' %}">#}
+{#</head>#}
+{#<body>#}
+{#  <div class="container">#}
+{#    <h2>Request Exercise</h2>#}
+{##}
+{#    <button class="btn btn-primary" id="chooseTypeBtn">Choose Type</button>#}
+{#    <div class="dropdown" id="dropdownMenu">#}
+{#      <select id="exerciseType">#}
+{#        <option value="">-- Select Exercise Type --</option>#}
+{#        <option>Utility</option>#}
+{#        <option>Shooting HS</option>#}
+{#        <option>Counter-Strafe</option>#}
+{#        <option>Pre Aim</option>#}
+{#        <option>Spray</option>#}
+{#        <option>Reaction</option>#}
+{#      </select>#}
+{#      <button class="btn btn-primary" id="confirmType">Confirm Selection</button>#}
+{#    </div>#}
+{##}
+{#    <button class="btn btn-secondary" id="generateBtn">Generate</button>#}
+{##}
+{#    <div class="exercise-details" id="exerciseDetails">#}
+{#      <strong>Exercise:</strong> <span id="exerciseName"></span><br><br>#}
+{#      <strong>Description:</strong>#}
+{#      <p id="exerciseDesc"></p>#}
+{#    </div>#}
+{#  </div>#}
+{##}
+{#  <script src="{% static 'scripts/singleTrainingRequest.js' %}"></script>#}
+{#</body>#}
+{#</html>#}

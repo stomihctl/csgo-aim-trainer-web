@@ -1,0 +1,69 @@
+{# Mihajlo Stojanović 2022/0221 #}
+
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Find a Trainer - CS2 Trainer</title>
+{% endblock %}
+
+{% block links %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/trainerSelection.css' %}">
+{% endblock %}
+
+{% block content %}
+<header>
+  CS2 Trainer — Find Your Coach
+</header>
+
+<div class="container">
+  <h2>Trainer Search</h2>
+
+  <form method="get" class="filters">
+    <select name="specialization">
+      <option value="">Specialization</option>
+      <option value="Aiming" {% if selected_specialization == "Aiming" %}selected{% endif %}>Aiming</option>
+      <option value="Strategy" {% if selected_specialization == "Strategy" %}selected{% endif %}>Strategy</option>
+      <option value="Team Play" {% if selected_specialization == "Team Play" %}selected{% endif %}>Team Play</option>
+    </select>
+
+    <select name="price">
+      <option value="">Price per Hour</option>
+      <option value="low" {% if selected_price == "low" %}selected{% endif %}>Low to High</option>
+      <option value="high" {% if selected_price == "high" %}selected{% endif %}>High to Low</option>
+    </select>
+
+    <select name="language">
+      <option value="">Language</option>
+      <option value="English" {% if selected_language == "English" %}selected{% endif %}>English</option>
+      <option value="Serbian" {% if selected_language == "Serbian" %}selected{% endif %}>Serbian</option>
+      <option value="German" {% if selected_language == "German" %}selected{% endif %}>German</option>
+    </select>
+
+    <input type="text" name="name" placeholder="Search by name" value="{{ name_search }}">
+    <button type="submit" class="btn btn-contact">Filter</button>
+  </form>
+
+  <div class="trainer-list">
+    {% for t in trainers %}
+    <div class="trainer-card">
+      <h3>{{ t.trainer.trainerid.username }}</h3>
+      <p>Specialization: {{ t.trainer.expertise|default:"N/A" }}</p>
+      <p>Price: {{ t.trainer.priceperhour|default:"-" }} €/h</p>
+      <p>Language: {{ t.language }}</p>
+      <p>Level: {{ t.level }}</p>
+      <p>Availability: {{ t.trainer.availability|default:"N/A" }}</p>
+      <div class="actions">
+        <form method="post" action="{% url 'choose_trainer' t.trainer.trainerid.id %}">
+          {% csrf_token %}
+          <button class="btn btn-contact" type="submit">Choose Trainer</button>
+        </form>
+      </div>
+    </div>
+    {% empty %}
+    <p class="muted">No trainers found with these filters.</p>
+    {% endfor %}
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,96 @@
+/* Djordje Ristic 2022/0120 */
+/* Andrija Ciric 2022/0028*/
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #4e73df, #1cc88a);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px; /* allow breathing room on small screens */
+    box-sizing: border-box;
+}
+
+.plan-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px; /* wider for the form */
+    max-height: 90vh; /* keep within viewport */
+    overflow-y: auto; /* scroll if content is too tall */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.day-block {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.day-block h3 {
+    margin-bottom: 10px;
+    color: #4e73df;
+}
+
+.exercise-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.exercise-row label {
+    min-width: 60px;
+}
+
+.exercise-row select,
+.exercise-row input {
+    flex: 1;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    background-color: #4e73df;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #3752b0;
+}
+
+.cancel {
+    background-color: #e74a3b;
+}
+
+.cancel:hover {
+    background-color: #b83a2f;
+}
+
+.finish {
+    background-color: #1cc88a;
+}
+
+.finish:hover {
+    background-color: #17a673;
+}

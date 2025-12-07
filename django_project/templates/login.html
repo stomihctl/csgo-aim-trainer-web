@@ -1,0 +1,112 @@
+{#Andrija Ciric 2022/0028#}
+{% extends 'base.html' %}
+{% block title %}
+<title>Login</title>
+{% endblock %}
+{% block links %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="card" role="dialog" aria-labelledby="title">
+    <div class="header">
+      <div class="logo" id="title" aria-label="CS2 Trainer">
+        <span class="dot" aria-hidden="true"></span>
+        CS2 Trainer — Auth
+      </div>
+    </div>
+
+    <div class="tabbar" role="tablist" aria-label="Auth tabs">
+      <button id="tab-login" class="active" role="tab" aria-selected="true" aria-controls="panel-login">Sign in</button>
+      <button id="tab-register" role="tab" aria-selected="false" aria-controls="panel-register">Create account</button>
+    </div>
+    {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+        <div class="alert {{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+{% endif %}
+    <!-- LOGIN FORM -->
+    <form id="panel-login" role="tabpanel" aria-labelledby="tab-login" action="/" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="login">
+      <div>
+        <label for="login-identifier">Email or username</label>
+        <input id="login-identifier" name="identifier" type="text" autocomplete="username" required />
+      </div>
+      <div>
+        <label for="login-password">Password</label>
+        <input id="login-password" name="password" type="password" autocomplete="current-password" required />
+      </div>
+      <div>
+        <label for="login-role">Role</label>
+        <select id="login-role" name="role" required>
+          <option value="player" style="color: #0e0e10">Player</option>
+          <option value="coach" style="color: #0e0e10">Coach</option>
+          <option value="admin" style="color: #0e0e10">Administrator</option>
+        </select>
+      </div>
+      <div class="meta">
+        <label style="display:flex; align-items:center; gap:.5rem; cursor:pointer;">
+          <input type="checkbox" name="remember" value="1" style="width:16px;height:16px;"> Remember me
+        </label>
+        <a href="/forgot-password">Forgot password?</a>
+      </div>
+      <div class="actions">
+        <button class="btn primary" type="submit">Sign in</button>
+        <button class="btn ghost" type="button" id="to-register">First time here? Create an account</button>
+      </div>
+      <div class="footnote">By continuing you agree to our Terms & Privacy.</div>
+    </form>
+
+    <!-- REGISTER FORM -->
+    <form id="panel-register" class="hidden" role="tabpanel" aria-labelledby="tab-register" action="/" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="register">
+      <div class="row">
+        <div>
+          <label for="reg-username">Username</label>
+          <input id="reg-username" name="username" type="text" autocomplete="username" required />
+        </div>
+        <div>
+          <label for="reg-role">Role</label>
+          <select id="reg-role" name="role" required>
+            <option value="player" style="color: #0e0e10">Player</option>
+            <option value="coach" style="color: #0e0e10">Coach</option>
+            <option value="admin" style="color: #0e0e10">Administrator</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="reg-email">Email</label>
+        <input id="reg-email" name="email" type="email" autocomplete="email" required />
+      </div>
+      <div class="row">
+        <div>
+          <label for="reg-password">Password</label>
+          <input id="reg-password" name="password" type="password" autocomplete="new-password" minlength="8" required />
+        </div>
+        <div>
+          <label for="reg-password2">Confirm password</label>
+          <input id="reg-password2" name="password_confirm" type="password" autocomplete="new-password" minlength="8" required />
+        </div>
+      </div>
+      <div>
+        <label for="reg-consent" style="display:flex; align-items:center; gap:.5rem; cursor:pointer;">
+          <input id="reg-consent" type="checkbox" required style="width:16px;height:16px;"> I accept Terms & Privacy Policy
+        </label>
+      </div>
+      <div class="actions">
+        <button class="btn primary" type="submit">Create account</button>
+        <button class="btn ghost" type="button" id="to-login">Already have an account? Sign in</button>
+      </div>
+      <div class="footnote">We use secure password hashing and HTTPS in production.</div>
+    </form>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'scripts/login.js' %}"></script>
+{% endblock %}

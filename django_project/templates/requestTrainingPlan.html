@@ -1,0 +1,65 @@
+{#{% extends 'base.html' %}#}
+{#{% block title %}#}
+{#    <title>Weekly Training Request</title>#}
+{#{% endblock %}#}
+{#{% block links %}#}
+{#    {% load static %}#}
+{#    <link rel="stylesheet" href="{% static 'styles/requestTrainingPlan.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'styles/login.css' %}">#}
+{#{% endblock %}#}
+{#{% block scripts %}#}
+{#    <script src="{% static 'scripts/requestTrainingPlan.js' %}"></script>#}
+{#{% endblock %}#}
+{#{% block content %}#}
+{#<div class="container">#}
+{#    <h2>Request Weekly Training</h2>#}
+{#    <p>Click the button below to send a training plan request to your trainer.</p>#}
+{##}
+{#    <button class="btn">Request Weekly Plan</button>#}
+{##}
+{#    <hr style="margin: 20px 0;">#}
+{##}
+{#    <h3>Send Training Feedback</h3>#}
+{#    <p>After completing your training, you can send feedback and statistics to your trainer.</p>#}
+{##}
+{#    <textarea placeholder="Enter your workout stats and feedback..."></textarea>#}
+{#    <button class="btn">Send Feedback</button>#}
+{##}
+{#    <a href="index.html" class="link">Back to Dashboard</a>#}
+{#  </div>#}
+{#{% endblock %}#}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weekly Training Request</title>
+  {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/requestTrainingPlan.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/login.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h2>Request Weekly Training</h2>
+    <p>Send a request to your trainer for your next weekly training plan.</p>
+
+    <form method="POST" action="{% url 'request_training_plan' %}">
+      {% csrf_token %}
+
+      <label for="comment">Optional comment:</label>
+      <textarea id="comment" name="comment" placeholder="Add a note for your trainer..."></textarea>
+
+      <button type="submit" class="btn">Send Request</button>
+    </form>
+
+{#    <a href="{% url 'player_dashboard' %}" class="link">Back to Dashboard</a>#}
+  </div>
+
+  <script src="{% static 'scripts/requestTrainingPlan.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,197 @@
+body {
+    background: #0e0e10;
+    color: #f5f5f5;
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.home-container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.card {
+    background: #1a1a1d;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+.header-card h2 {
+    font-size: 26px;
+    margin: 0 0 10px 0;
+}
+
+.muted {
+    color: #b3b3b3;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+}
+
+.stat-card {
+    background: #242427;
+    border-radius: 10px;
+    text-align: center;
+    padding: 15px;
+}
+
+.stat-card h3 {
+    color: #58a6ff;
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.form-card h3 {
+    margin-bottom: 15px;
+}
+
+.form-grid {
+    display: grid;
+    gap: 10px;
+}
+
+.form-grid input {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #2a2a2d;
+    color: white;
+}
+
+.form-grid input:focus {
+    outline: 2px solid #58a6ff;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn.primary {
+    background-color: #58a6ff;
+    color: white;
+}
+
+.btn.ghost {
+    background: transparent;
+    color: #58a6ff;
+    border: 1px solid #58a6ff;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.trainers {
+    display: grid;
+    gap: 10px;
+}
+
+.trainer-card {
+    background: #242427;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.player-item {
+    background: #222;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+}
+
+.logout-btn {
+    text-align: center;
+    margin-top: 20px;
+}
+.search-link {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.search-link a {
+    font-size: 16px;
+}
+.trainer-info {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #e2e8f0;
+}
+.trainer-info strong {
+    color: #3b82f6;
+}
+.btn.secondary {
+    background-color: #ff9800;
+    color: white;
+}
+.btn.secondary:hover {
+    background-color: #e68900;
+}
+.trainer-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px; /* razmak između dugmadi */
+    flex-wrap: wrap; /* ako je ekran mali, dugmad prelaze u novi red */
+}
+
+.trainer-actions .btn {
+    min-width: 120px; /* da dugmad imaju sličnu veličinu */
+    text-align: center;
+}
+
+.form-grid select {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #2a2a2d;
+    color: white;
+    appearance: none; /* sakriva default strelicu (browser stil) */
+}
+
+.form-grid select:focus {
+    outline: 2px solid #58a6ff;
+}
+
+
+:root {
+  --bg: #0f1115;
+  --panel: #151923;
+  --panel-2: #1b2030;
+  --text: #e8ecf1;
+  --muted: #a8b0bd;
+  --primary: #6ea8ff;
+  --primary-2: #2e6fff;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+
+/** { box-sizing: border-box; }*/
+/*html, body { height: 100%; margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial,"Apple Color Emoji","Segoe UI Emoji"; background: radial-gradient(1200px 800px at 10% -10%, #1f2640 0%, transparent 60%), radial-gradient(900px 600px at 110% 10%, #12233a 0%, transparent 60%), var(--bg); color: var(--text); }*/
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.navbar .logo { font-weight: 700; font-size: 1.2rem; display: flex; align-items: center; gap: .5rem; }
+.navbar .logo .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 16px var(--primary); }
+.navbar .links { display: flex; gap: 1rem; }
+.navbar .links a { font-weight: 500; padding: .4rem .6rem; border-radius: 8px; transition: background .2s; }
+.navbar .links a:hover { background: rgba(110,168,255,.1); }
+.navbar .links .logoff { background: var(--danger); color: white; }
+.navbar .links .logoff:hover { background: #d43b3b; }
+
+
+
+
+/*.logo { display: flex; align-items: center; gap: .6rem; font-weight: 700; letter-spacing: .5px; font-size: 1.1rem; color: var(--text); }*/
+/*.logo .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 16px var(--primary); }*/

@@ -1,0 +1,55 @@
+{# Andrija Ciric 2022/0028 #}
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    <title>Title</title>
+    {% endblock %}
+    {% block base_links %}
+    <link rel="stylesheet" href="{% static 'styles/navigation.css' %}">
+    {% endblock %}
+    {% block links %}
+
+    {% endblock %}
+</head>
+<body>
+{% block navigation %}
+    <nav class="navbar">
+        <div class="logo">
+            <span class="dot"></span>
+            CS2 Trainer
+        </div>
+        {% if user.is_authenticated %}
+        <div class="links">
+                <a href="/home">Home</a>
+            {% if request.user.role == 'player' %}
+                <a href="/training_statistics">Training Statistics</a>
+                <a href="/trainer_selection">Trainer Selection</a>
+                <a href="/single_training_request/">Exercise Request</a>
+                <a href="/request_training_plan/">Weekly Plan Request</a>
+                <form action="/account_removal_request/" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-button">Request Account Removal</button>
+                </form>
+            {% endif %}
+            {% if request.user.role == 'admin' %}
+                <a href="/account_remove/">Account Removal</a>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <a href="/logoff" class="logoff">Logoff</a>
+            {% endif %}
+        </div>
+        {% endif %}
+      </nav>
+{% endblock %}
+{% block content %}
+
+{% endblock %}
+{% block scripts %}
+
+{% endblock %}
+</body>
+</html>

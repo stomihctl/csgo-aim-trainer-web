@@ -1,0 +1,139 @@
+/* Mihajlo Stojanović 2022/0221 */
+
+/* trainerSelection.css — CS2 Trainer — Find your coach */
+body {
+  background: linear-gradient(to bottom right, #0f172a, #1e293b);
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 15px 30px;
+  text-align: center;
+  font-size: 1.6em;
+  font-weight: bold;
+  border-bottom: 2px solid #3b82f6;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.5);
+}
+
+h2 {
+  margin-top: 0;
+  border-bottom: 2px solid #3b82f6;
+  padding-bottom: 10px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filters select,
+.filters input {
+  flex: 1;
+  min-width: 150px;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+}
+
+.trainer-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.trainer-card {
+  background: rgba(0,0,0,0.3);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.trainer-card:hover {
+  transform: translateY(-5px);
+  background: rgba(0,0,0,0.45);
+}
+
+.trainer-card h3 {
+  margin: 10px 0;
+  color: #fff;
+}
+
+.trainer-card p {
+  font-size: 0.9em;
+  color: #cbd5e1;
+  margin: 3px 0;
+}
+
+.btn {
+  display: inline-block;
+  margin: 8px 5px 0;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.btn-contact {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-contact:hover {
+  background: #2563eb;
+}
+
+.btn-cancel {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background: #dc2626;
+}
+
+
+:root {
+  --bg: #0f1115;
+  --panel: #151923;
+  --panel-2: #1b2030;
+  --text: #e8ecf1;
+  --muted: #a8b0bd;
+  --primary: #6ea8ff;
+  --primary-2: #2e6fff;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+
+/** { box-sizing: border-box; }*/
+/*html, body { height: 100%; margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial,"Apple Color Emoji","Segoe UI Emoji"; background: radial-gradient(1200px 800px at 10% -10%, #1f2640 0%, transparent 60%), radial-gradient(900px 600px at 110% 10%, #12233a 0%, transparent 60%), var(--bg); color: var(--text); }*/
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.navbar .logo { font-weight: 700; font-size: 1.2rem; display: flex; align-items: center; gap: .5rem; }
+.navbar .logo .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 16px var(--primary); }
+.navbar .links { display: flex; gap: 1rem; }
+.navbar .links a { font-weight: 500; padding: .4rem .6rem; border-radius: 8px; transition: background .2s; }
+.navbar .links a:hover { background: rgba(110,168,255,.1); }
+.navbar .links .logoff { background: var(--danger); color: white; }
+.navbar .links .logoff:hover { background: #d43b3b; }

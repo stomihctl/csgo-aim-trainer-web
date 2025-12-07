@@ -1,0 +1,69 @@
+{# Andrija Ciric 2022/0028#}
+{# Djordje Ristic 2022/0120#}
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Account Remove</title>
+{% endblock %}
+
+{% block links %}
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'styles/accountRemove.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/login.css' %}">
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'scripts/accountRemove.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <section aria-label="Pending account removal requests">
+    <h2>Pending Account Removal Requests</h2>
+    {% if requests_list %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Request ID</th>
+                    <th>User</th>
+                    <th>Date Requested</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for req in requests_list %}
+                <tr>
+                    <td>{{ req.requestid }}</td>
+                    <td>{{ req.userid.username }}</td>
+                    <td>{{ req.daterequested }}</td>
+                    <td>{{ req.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No account removal requests at the moment.</p>
+    {% endif %}
+</section>
+<main class="card" role="main" aria-labelledby="page-title">
+    <h1 id="page-title">Admin: Remove User Account</h1>
+    <p>This page allows administrators to process user account removal requests or delete accounts manually.</p>
+    <section aria-label="Manual account deletion">
+      <form id="manual-delete-form" autocomplete="off" method="POST">
+          {% csrf_token %}
+        <label for="manual-username">Enter username to delete manually:</label>
+        <input type="text" id="manual-username" name="manual-username" placeholder="Username" required aria-required="true" />
+        <button type="submit">Delete Account</button>
+      </form>
+    </section>
+
+    <div id="message" class="message" role="alert" aria-live="assertive"></div>
+  </main>
+{% endblock %}

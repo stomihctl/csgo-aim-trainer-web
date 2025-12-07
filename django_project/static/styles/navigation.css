@@ -1,0 +1,30 @@
+/*Andrija Ciric 2022/0028*/
+/*Djordje Ristic 2022/0120*/
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--panel);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+
+}
+.nav-button {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+}
+
+.navbar .logo { font-weight: 700; font-size: 1.2rem; display: flex; align-items: center; gap: .5rem; }
+.navbar .logo .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 16px var(--primary); }
+.navbar .links { display: flex; gap: 1rem; }
+.navbar .links a { font-weight: 500; padding: .4rem .6rem; border-radius: 8px; transition: background .2s; }
+.navbar .links a:hover { background: rgba(110,168,255,.1); }
+.navbar .links .logoff { background: var(--danger); color: white; }
+.navbar .links .logoff:hover { background: #d43b3b; }
