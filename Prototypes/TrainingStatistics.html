@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unošenje statistike vežbe</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #2c3e50, #4ca1af);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding-top: 60px;
+    }
+    .container {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    select, input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
+    select, input, textarea {
+      background: rgba(255, 255, 255, 0.9);
+      color: black;
+    }
+    button {
+      background-color: #4ca1af;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #357f89;
+    }
+    .message {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Unošenje statistike vežbe</h1>
+    <form id="statsForm">
+      <label for="exercise">Izaberite vežbu</label>
+      <select id="exercise" required>
+        <option value="">-- Odaberite vežbu --</option>
+        <option value="vezba1">Vežba 1 - Sklekovi</option>
+        <option value="vezba2">Vežba 2 - Trčanje</option>
+        <option value="vezba3">Vežba 3 - Čučnjevi</option>
+      </select>
+
+      <label for="score">Rezultat</label>
+      <input type="number" id="score" placeholder="Unesite rezultat (npr. broj ponavljanja)" required />
+
+      <label for="time">Trajanje (u minutima)</label>
+      <input type="number" id="time" placeholder="Unesite trajanje vežbe" required />
+
+      <label for="notes">Dodatne napomene (opciono)</label>
+      <textarea id="notes" rows="3" placeholder="Npr. osećaj nakon vežbe..."></textarea>
+
+      <button type="submit">Sačuvaj statistiku</button>
+    </form>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    const statsForm = document.getElementById('statsForm');
+    const message = document.getElementById('message');
+
+    statsForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const exercise = document.getElementById('exercise').value;
+      const score = document.getElementById('score').value;
+      const time = document.getElementById('time').value;
+      const notes = document.getElementById('notes').value;
+
+      if (!exercise || !score || !time) {
+        message.style.color = 'red';
+        message.textContent = 'Molimo popunite sva obavezna polja.';
+        return;
+      }
+
+      // Simulacija slanja podataka u bazu
+      const data = {
+        exercise,
+        score,
+        time,
+        notes
+      };
+
+      console.log('Podaci za čuvanje:', data);
+
+      message.style.color = 'lightgreen';
+      message.textContent = 'Statistika uspešno sačuvana!';
+
+      statsForm.reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request Exercise</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #1a2a6c, #b21f1f, #fdbb2d);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 10px;
+      width: 350px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn-primary {
+      background: #1a73e8;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #155bb5;
+    }
+    .btn-secondary {
+      background: #34a853;
+      color: white;
+    }
+    .btn-secondary:hover {
+      background: #2a8643;
+    }
+    .dropdown {
+      margin: 15px 0;
+      display: none;
+    }
+    select {
+      padding: 8px;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .exercise-details {
+      margin-top: 20px;
+      text-align: left;
+      font-size: 14px;
+      color: #333;
+      background: #f7f7f7;
+      padding: 10px;
+      border-radius: 5px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Request Exercise</h2>
+
+    <button class="btn btn-primary" id="chooseTypeBtn">Choose Type</button>
+    <div class="dropdown" id="dropdownMenu">
+      <select id="exerciseType">
+        <option value="">-- Select Exercise Type --</option>
+        <option>Utility</option>
+        <option>Shooting HS</option>
+        <option>Counter-Strafe</option>
+        <option>Pre Aim</option>
+        <option>Spray</option>
+        <option>Reaction</option>
+      </select>
+      <button class="btn btn-primary" id="confirmType">Confirm Selection</button>
+    </div>
+
+    <button class="btn btn-secondary" id="generateBtn">Generate</button>
+
+    <div class="exercise-details" id="exerciseDetails">
+      <strong>Exercise:</strong> <span id="exerciseName"></span><br><br>
+      <strong>Description:</strong>
+      <p id="exerciseDesc"></p>
+    </div>
+  </div>
+
+  <script>
+    const chooseTypeBtn = document.getElementById("chooseTypeBtn");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+    const confirmType = document.getElementById("confirmType");
+    const exerciseType = document.getElementById("exerciseType");
+    const generateBtn = document.getElementById("generateBtn");
+    const exerciseDetails = document.getElementById("exerciseDetails");
+    const exerciseName = document.getElementById("exerciseName");
+    const exerciseDesc = document.getElementById("exerciseDesc");
+
+    const descriptions = {
+      "Utility": "Practice throwing grenades and other utility items efficiently.",
+      "Shooting HS": "Aim for headshots to improve precision shooting skills.",
+      "Counter-Strafe": "Master stopping movement before shooting for better accuracy.",
+      "Pre Aim": "Position your crosshair before entering sightlines.",
+      "Spray": "Control weapon recoil for better accuracy in sustained fire.",
+      "Reaction": "Improve reaction times with quick target acquisition."
+    };
+
+    chooseTypeBtn.addEventListener("click", () => {
+      dropdownMenu.style.display = "block";
+      exerciseDetails.style.display = "none";
+    });
+
+    confirmType.addEventListener("click", () => {
+      if (exerciseType.value) {
+        exerciseName.textContent = exerciseType.value;
+        exerciseDesc.textContent = descriptions[exerciseType.value];
+        exerciseDetails.style.display = "block";
+      }
+    });
+
+    generateBtn.addEventListener("click", () => {
+      const types = Object.keys(descriptions);
+      const randomType = types[Math.floor(Math.random() * types.length)];
+      exerciseName.textContent = randomType;
+      exerciseDesc.textContent = descriptions[randomType];
+      exerciseDetails.style.display = "block";
+      dropdownMenu.style.display = "none";
+    });
+  </script>
+</body>
+</html>

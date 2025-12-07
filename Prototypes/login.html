@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CS2 Trainer — Login / Register</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #151923;
+      --panel-2: #1b2030;
+      --text: #e8ecf1;
+      --muted: #a8b0bd;
+      --primary: #6ea8ff;
+      --primary-2: #2e6fff;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial,"Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 10% -10%, #1f2640 0%, transparent 60%),
+                  radial-gradient(900px 600px at 110% 10%, #12233a 0%, transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+    }
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.06);
+      overflow: hidden;
+    }
+    .header {
+      padding: 1.25rem 1.25rem 0.5rem;
+    }
+    .logo {
+      display: flex; align-items: center; gap: .6rem;
+      font-weight: 700; letter-spacing: .5px; font-size: 1.1rem; color: var(--text);
+    }
+    .logo .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 16px var(--primary); }
+    .tabbar {
+      display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin: 1rem 1.25rem 0; background: rgba(255,255,255,.04); padding: .4rem; border-radius: 999px;
+    }
+    .tabbar button {
+      appearance: none; border: 0; background: transparent; color: var(--muted);
+      padding: .65rem 1rem; border-radius: 999px; font-weight: 600; cursor: pointer;
+    }
+    .tabbar button.active { background: var(--primary); color: #0b1020; box-shadow: 0 8px 20px rgba(110,168,255,.35); }
+    form { padding: 1.25rem; display: grid; gap: .9rem; }
+    label { font-size: .9rem; color: var(--muted); display: block; margin-bottom: .35rem; }
+    input, select {
+      width: 100%; padding: .8rem .9rem; background: rgba(255,255,255,.06); color: var(--text);
+      border: 1px solid rgba(255,255,255,.08); border-radius: 12px; outline: none;
+    }
+    input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(110,168,255,.15); }
+    .row { display: flex; gap: .75rem; }
+    .row > * { flex: 1; }
+    .actions { display: grid; gap: .6rem; }
+    .btn {
+      appearance: none; border: 0; cursor: pointer; border-radius: 12px; padding: .9rem 1rem; font-weight: 700;
+    }
+    .btn.primary { background: linear-gradient(180deg, var(--primary), var(--primary-2)); color: white; box-shadow: 0 10px 24px rgba(46,111,255,.45); }
+    .btn.ghost { background: transparent; color: var(--muted); border: 1px dashed rgba(255,255,255,.15); }
+    .meta { display: flex; justify-content: space-between; align-items: center; font-size: .85rem; color: var(--muted); }
+    .meta a { color: var(--primary); text-decoration: none; }
+    .footnote { text-align: center; font-size: .85rem; color: var(--muted); padding: .75rem 1.25rem 1.25rem; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="card" role="dialog" aria-labelledby="title">
+    <div class="header">
+      <div class="logo" id="title" aria-label="CS2 Trainer">
+        <span class="dot" aria-hidden="true"></span>
+        CS2 Trainer — Auth
+      </div>
+    </div>
+
+    <div class="tabbar" role="tablist" aria-label="Auth tabs">
+      <button id="tab-login" class="active" role="tab" aria-selected="true" aria-controls="panel-login">Sign in</button>
+      <button id="tab-register" role="tab" aria-selected="false" aria-controls="panel-register">Create account</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <form id="panel-login" role="tabpanel" aria-labelledby="tab-login" action="/login" method="POST">
+      <div>
+        <label for="login-identifier">Email or username</label>
+        <input id="login-identifier" name="identifier" type="text" autocomplete="username" required />
+      </div>
+      <div>
+        <label for="login-password">Password</label>
+        <input id="login-password" name="password" type="password" autocomplete="current-password" required />
+      </div>
+      <div>
+        <label for="login-role">Role</label>
+        <select id="login-role" name="role" required>
+          <option value="player">Player</option>
+          <option value="coach">Coach</option>
+          <option value="admin">Administrator</option>
+        </select>
+      </div>
+      <div class="meta">
+        <label style="display:flex; align-items:center; gap:.5rem; cursor:pointer;">
+          <input type="checkbox" name="remember" value="1" style="width:16px;height:16px;"> Remember me
+        </label>
+        <a href="/forgot-password">Forgot password?</a>
+      </div>
+      <div class="actions">
+        <button class="btn primary" type="submit">Sign in</button>
+        <button class="btn ghost" type="button" id="to-register">First time here? Create an account</button>
+      </div>
+      <div class="footnote">By continuing you agree to our Terms & Privacy.</div>
+    </form>
+
+    <!-- REGISTER FORM -->
+    <form id="panel-register" class="hidden" role="tabpanel" aria-labelledby="tab-register" action="/register" method="POST">
+      <div class="row">
+        <div>
+          <label for="reg-username">Username</label>
+          <input id="reg-username" name="username" type="text" autocomplete="username" required />
+        </div>
+        <div>
+          <label for="reg-role">Role</label>
+          <select id="reg-role" name="role" required>
+            <option value="player">Player</option>
+            <option value="coach">Coach</option>
+            <option value="admin">Administrator</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="reg-email">Email</label>
+        <input id="reg-email" name="email" type="email" autocomplete="email" required />
+      </div>
+      <div class="row">
+        <div>
+          <label for="reg-password">Password</label>
+          <input id="reg-password" name="password" type="password" autocomplete="new-password" minlength="8" required />
+        </div>
+        <div>
+          <label for="reg-password2">Confirm password</label>
+          <input id="reg-password2" name="password_confirm" type="password" autocomplete="new-password" minlength="8" required />
+        </div>
+      </div>
+      <div>
+        <label for="reg-consent" style="display:flex; align-items:center; gap:.5rem; cursor:pointer;">
+          <input id="reg-consent" type="checkbox" required style="width:16px;height:16px;"> I accept Terms & Privacy Policy
+        </label>
+      </div>
+      <div class="actions">
+        <button class="btn primary" type="submit">Create account</button>
+        <button class="btn ghost" type="button" id="to-login">Already have an account? Sign in</button>
+      </div>
+      <div class="footnote">We use secure password hashing and HTTPS in production.</div>
+    </form>
+  </div>
+
+  <script>
+    const tabLogin = document.getElementById('tab-login');
+    const tabRegister = document.getElementById('tab-register');
+    const panelLogin = document.getElementById('panel-login');
+    const panelRegister = document.getElementById('panel-register');
+    const toRegister = document.getElementById('to-register');
+    const toLogin = document.getElementById('to-login');
+
+    function activate(tab) {
+      const isLogin = tab === 'login';
+      tabLogin.classList.toggle('active', isLogin);
+      tabRegister.classList.toggle('active', !isLogin);
+      tabLogin.setAttribute('aria-selected', String(isLogin));
+      tabRegister.setAttribute('aria-selected', String(!isLogin));
+      panelLogin.classList.toggle('hidden', !isLogin);
+      panelRegister.classList.toggle('hidden', isLogin);
+    }
+
+    tabLogin.addEventListener('click', () => activate('login'));
+    tabRegister.addEventListener('click', () => activate('register'));
+    toRegister.addEventListener('click', () => activate('register'));
+    toLogin.addEventListener('click', () => activate('login'));
+
+    // Simple client-side check for matching passwords on register
+    document.getElementById('panel-register').addEventListener('submit', function (e) {
+      const p1 = document.getElementById('reg-password').value;
+      const p2 = document.getElementById('reg-password2').value;
+      if (p1 !== p2) {
+        e.preventDefault();
+        alert('Passwords do not match.');
+      }
+    });
+  </script>
+</body>
+</html>

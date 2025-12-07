@@ -1,0 +1,6 @@
+INSERT INTO trainingapp.exercise (exerciseId, name, description, type, difficulty)
+VALUES 
+  (1, 'Exercise for reaction', 'Download map 5e_aimhub, start it, find mode for reaction and play it few times.(avg reaction time is result for this exercise)', 'reactiontime','medium'),
+  (2, 'DM HeadShot', 'Select in game gamemode deathmatch free for all and play it for 30 minuts. Focus on headshots.(number of hs is result for this exercise)', 'headshot','hard'),
+  (3, 'Spray exercise', 'Select in game gamemode deathmatch free for all and play it for 30 minuts. Try to shoot only in body and always spray.(number of kills is result for this exercise)', 'spray','easy'),
+  (4, 'Counter-strafe with bots', 'Download map 5e_aimhub, start it, move left or right and when you want to shoot bot press button for other direction to stop faster and shoot.Play it for 30 minuts.(number of kills is result for this exercise)', 'counterstrafing','medium')

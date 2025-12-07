@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CS2 Trainer — Admin Account Removal</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --panel: #151923;
+    --panel-2: #1b2030;
+    --text: #e8ecf1;
+    --muted: #a8b0bd;
+    --primary: #6ea8ff;
+    --primary-2: #2e6fff;
+    --danger: #ef4444;
+    --success: #22c55e;
+    --radius: 16px;
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: radial-gradient(1200px 800px at 10% -10%, #1f2640 0%, transparent 60%),
+                radial-gradient(900px 600px at 110% 10%, #12233a 0%, transparent 60%),
+                var(--bg);
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial,
+      "Apple Color Emoji", "Segoe UI Emoji";
+    color: var(--text);
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+  }
+  .card {
+    max-width: 460px;
+    width: 100%;
+    background: linear-gradient(180deg, var(--panel), var(--panel-2));
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255,255,255,.06);
+    padding: 1.5rem 2rem 2rem;
+  }
+  h1 {
+    font-weight: 700;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  p {
+    color: var(--muted);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+  }
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  input[type="text"]:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(110,168,255,0.15);
+  }
+  button {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: var(--danger);
+    color: white;
+    box-shadow: 0 10px 24px rgba(239,68,68,0.45);
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #dc2626;
+  }
+  .requests-list {
+    margin-bottom: 1.5rem;
+  }
+  .request-item {
+    background: rgba(255,255,255,0.05);
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.6rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+  }
+  .request-item button {
+    background: var(--primary);
+    box-shadow: 0 10px 24px rgba(110,168,255,0.45);
+    color: #0b1020;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .request-item button:hover {
+    background: var(--primary-2);
+  }
+  .confirmation-dialog {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .confirmation-dialog.active {
+    visibility: visible;
+    opacity: 1;
+  }
+  .dialog-box {
+    background: var(--panel-2);
+    padding: 2rem;
+    border-radius: var(--radius);
+    max-width: 380px;
+    width: 90%;
+    text-align: center;
+    box-shadow: var(--shadow);
+    color: var(--text);
+  }
+  .dialog-box p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+  .dialog-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .dialog-actions button {
+    flex: 1;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 12px;
+    padding: 0.8rem 0;
+  }
+  .btn-yes {
+    background: var(--danger);
+    color: white;
+    box-shadow: 0 10px 24px rgba(239,68,68,0.45);
+  }
+  .btn-yes:hover {
+    background: #dc2626;
+  }
+  .btn-no {
+    background: var(--muted);
+    color: var(--panel-2);
+  }
+  .btn-no:hover {
+    background: #8a94a6;
+  }
+  .message {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 600;
+  }
+  .message.success {
+    color: var(--success);
+  }
+  .message.error {
+    color: var(--danger);
+  }
+</style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="page-title">
+    <h1 id="page-title">Admin: Remove User Account</h1>
+    <p>This page allows administrators to process user account removal requests or delete accounts manually.</p>
+
+    <section aria-label="Account deletion requests">
+      <h2 style="color: var(--muted); margin-bottom: 0.8rem;">Pending Deletion Requests</h2>
+      <div class="requests-list" id="requests-list" aria-live="polite">
+        <!-- Requests will be dynamically inserted here -->
+      </div>
+    </section>
+
+    <section aria-label="Manual account deletion">
+      <form id="manual-delete-form" autocomplete="off">
+        <label for="manual-username">Enter username to delete manually:</label>
+        <input type="text" id="manual-username" name="manual-username" placeholder="Username" required aria-required="true" />
+        <button type="submit">Delete Account</button>
+      </form>
+    </section>
+
+    <div id="message" class="message" role="alert" aria-live="assertive"></div>
+  </main>
+
+  <!-- Confirmation dialog -->
+  <div class="confirmation-dialog" id="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-desc" tabindex="-1">
+    <div class="dialog-box">
+      <p id="confirm-desc">Are you sure you want to delete the account "<span id="confirm-username"></span>"?</p>
+      <div class="dialog-actions">
+        <button class="btn-yes" id="confirm-yes">YES</button>
+        <button class="btn-no" id="confirm-no">NO</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // Sample pending deletion requests
+  let pendingRequests = [
+    'player123',
+    'cheater99',
+    'inactive_user',
+  ];
+
+  const requestsList = document.getElementById('requests-list');
+  const manualForm = document.getElementById('manual-delete-form');
+  const messageBox = document.getElementById('message');
+  const confirmDialog = document.getElementById('confirm-dialog');
+  const confirmUsernameSpan = document.getElementById('confirm-username');
+  const confirmYesBtn = document.getElementById('confirm-yes');
+  const confirmNoBtn = document.getElementById('confirm-no');
+
+  let usernameToDelete = null;
+
+  // Render the pending deletion requests list
+  function renderRequests() {
+    requestsList.innerHTML = '';
+    if (pendingRequests.length === 0) {
+      requestsList.innerHTML = '<p style="color: var(--muted); font-style: italic;">No pending requests.</p>';
+      return;
+    }
+    pendingRequests.forEach(username => {
+      const div = document.createElement('div');
+      div.className = 'request-item';
+      div.textContent = username;
+      const btn = document.createElement('button');
+      btn.textContent = 'Delete';
+      btn.setAttribute('aria-label', `Delete account ${username}`);
+      btn.addEventListener('click', () => confirmDeletion(username));
+      div.appendChild(btn);
+      requestsList.appendChild(div);
+    });
+  }
+
+  // Show confirmation dialog
+  function confirmDeletion(username) {
+    usernameToDelete = username;
+    confirmUsernameSpan.textContent = username;
+    confirmDialog.classList.add('active');
+    confirmDialog.focus();
+  }
+
+  // Hide confirmation dialog
+  function closeDialog() {
+    confirmDialog.classList.remove('active');
+    usernameToDelete = null;
+  }
+
+  // Delete the username from pending requests and show success message
+  function deleteAccount(username) {
+    // Simulate delete: remove from pendingRequests if exists
+    pendingRequests = pendingRequests.filter(u => u !== username);
+    // Also if deleted manually, remove from pendingRequests (if exists)
+    renderRequests();
+    messageBox.textContent = `Account "${username}" has been deleted.`;
+    messageBox.className = 'message success';
+  }
+
+  confirmYesBtn.addEventListener('click', () => {
+    if (usernameToDelete) {
+      deleteAccount(usernameToDelete);
+    }
+    closeDialog();
+  });
+
+  confirmNoBtn.addEventListener('click', () => {
+    closeDialog();
+  });
+
+  manualForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const usernameInput = manualForm['manual-username'].value.trim();
+    if (!usernameInput) {
+      messageBox.textContent = 'Please enter a username.';
+      messageBox.className = 'message error';
+      return;
+    }
+
+    // Confirm manual deletion
+    confirmDeletion(usernameInput);
+
+    // Clear input for better UX, actual deletion happens after confirmation
+    manualForm.reset();
+  });
+
+  // Initial render
+  renderRequests();
+</script>
+</body>
+</html>

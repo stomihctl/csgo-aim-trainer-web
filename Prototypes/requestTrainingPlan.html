@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weekly Training Request</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #2e8b57, #1e90ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
+      width: 400px;
+      max-width: 90%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    p {
+      text-align: center;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #1e90ff;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-bottom: 15px;
+    }
+
+    .btn:hover {
+      background-color: #187bcd;
+    }
+
+    .link {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      color: #1e90ff;
+      text-decoration: none;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      resize: vertical;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Request Weekly Training</h2>
+    <p>Click the button below to send a training plan request to your trainer.</p>
+
+    <button class="btn">Request Weekly Plan</button>
+
+    <hr style="margin: 20px 0;">
+
+    <h3>Send Training Feedback</h3>
+    <p>After completing your training, you can send feedback and statistics to your trainer.</p>
+
+    <textarea placeholder="Enter your workout stats and feedback..."></textarea>
+    <button class="btn">Send Feedback</button>
+
+    <a href="index.html" class="link">Back to Dashboard</a>
+  </div>
+</body>
+</html>

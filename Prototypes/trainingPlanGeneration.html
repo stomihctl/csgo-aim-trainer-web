@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Generate Weekly Plan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #4e73df, #1cc88a);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .plan-container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 400px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 15px;
+      color: #333;
+    }
+    .day-label {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      resize: none;
+      margin-bottom: 20px;
+    }
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 14px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+      background-color: #4e73df;
+      transition: background-color 0.2s ease;
+    }
+    button:hover {
+      background-color: #3752b0;
+    }
+    .cancel {
+      background-color: #e74a3b;
+    }
+    .cancel:hover {
+      background-color: #b83a2f;
+    }
+    .finish {
+      background-color: #1cc88a;
+    }
+    .finish:hover {
+      background-color: #17a673;
+    }
+  </style>
+</head>
+<body>
+  <div class="plan-container">
+    <h2>Weekly Plan Generator</h2>
+    <div class="day-label" id="day-label">Day 1: Monday</div>
+    <textarea id="exercise-input" placeholder="Enter exercise for this day..."></textarea>
+    <div class="button-row">
+      <button class="cancel" onclick="cancelPlan()">Cancel</button>
+      <button id="next-btn" onclick="nextDay()">Next</button>
+    </div>
+  </div>
+
+  <script>
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    let currentDayIndex = 0;
+    let plan = {};
+
+    function updateDayLabel() {
+      document.getElementById('day-label').textContent = `Day ${currentDayIndex + 1}: ${days[currentDayIndex]}`;
+      document.getElementById('exercise-input').value = plan[days[currentDayIndex]] || "";
+      const nextBtn = document.getElementById('next-btn');
+      nextBtn.textContent = currentDayIndex === days.length - 1 ? "Finish" : "Next";
+      nextBtn.className = currentDayIndex === days.length - 1 ? "finish" : "";
+    }
+
+    function nextDay() {
+      plan[days[currentDayIndex]] = document.getElementById('exercise-input').value.trim();
+      if (currentDayIndex < days.length - 1) {
+        currentDayIndex++;
+        updateDayLabel();
+      } else {
+        alert("Plan sent to user!\n" + JSON.stringify(plan, null, 2));
+        // Redirect to home (simulation)
+        window.location.href = "#home";
+      }
+    }
+
+    function cancelPlan() {
+      if (confirm("Are you sure you want to cancel the plan?")) {
+        plan = {};
+        alert("Plan cancelled. Returning to home.");
+        window.location.href = "#home";
+      }
+    }
+
+    // Initialize
+    updateDayLabel();
+  </script>
+</body>
+</html>

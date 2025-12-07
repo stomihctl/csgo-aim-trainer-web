@@ -1,0 +1,141 @@
+CREATE DATABASE IF NOT EXISTS TrainingApp;
+USE TrainingApp;
+
+-- USER
+CREATE TABLE USER (
+    userId INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(30) UNIQUE NOT NULL,
+    passwordHash VARCHAR(255) NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL,
+    role ENUM('player','trainer','admin') NOT NULL
+);
+
+-- TRAINER
+CREATE TABLE TRAINER (
+    trainerId INT PRIMARY KEY,
+    expertise VARCHAR(100),
+    availability ENUM('available','unavailable'),
+    pricePerHour DECIMAL(6,2),
+    FOREIGN KEY (trainerId) REFERENCES USER(userId)
+);
+
+-- PLAYER
+CREATE TABLE PLAYER (
+    playerId INT PRIMARY KEY,
+    nickname VARCHAR(30),
+    age INT,
+    level ENUM('beginner','intermediate','advanced'),
+    chosenTrainer INT,
+    FOREIGN KEY (playerId) REFERENCES USER(userId),
+    FOREIGN KEY (chosenTrainer) REFERENCES TRAINER(trainerId)
+);
+
+-- ADMIN
+CREATE TABLE ADMIN (
+    adminId INT PRIMARY KEY,
+    FOREIGN KEY (adminId) REFERENCES USER(userId)
+);
+
+-- TRAINER_LANGUAGE
+CREATE TABLE TRAINER_LANGUAGE (
+    trainerId INT,
+    language VARCHAR(30),
+    PRIMARY KEY (trainerId, language),
+    FOREIGN KEY (trainerId) REFERENCES TRAINER(trainerId)
+);
+
+-- TRAINER_ATTRIBUTE
+CREATE TABLE TRAINER_ATTRIBUTE (
+    trainerId INT,
+    level ENUM('beginner','intermediate','advanced'),
+    PRIMARY KEY (trainerId, level),
+    FOREIGN KEY (trainerId) REFERENCES TRAINER(trainerId)
+);
+
+-- EXERCISE
+CREATE TABLE EXERCISE (
+    exerciseId INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50),
+    description VARCHAR(255),
+    type ENUM('utility','spray','reaction','other'),
+    difficulty ENUM('easy','medium','hard')
+);
+
+-- WEEKLY_PLAN
+CREATE TABLE WEEKLY_PLAN (
+    planId INT PRIMARY KEY AUTO_INCREMENT,
+    trainerId INT NOT NULL,
+    playerId INT NOT NULL,
+    creationDate DATE NOT NULL,
+    status ENUM('active','finished','canceled'),
+    FOREIGN KEY (trainerId) REFERENCES TRAINER(trainerId),
+    FOREIGN KEY (playerId) REFERENCES PLAYER(playerId)
+);
+
+-- PLAN_ITEM
+CREATE TABLE PLAN_ITEM (
+    planId INT,
+    exerciseId INT,
+    dayOfWeek TINYINT CHECK (dayOfWeek BETWEEN 1 AND 7),
+    sets INT,
+    repetitions INT,
+    PRIMARY KEY (planId, exerciseId, dayOfWeek),
+    FOREIGN KEY (planId) REFERENCES WEEKLY_PLAN(planId),
+    FOREIGN KEY (exerciseId) REFERENCES EXERCISE(exerciseId)
+);
+
+-- EXERCISE_STAT
+CREATE TABLE EXERCISE_STAT (
+    statId INT PRIMARY KEY AUTO_INCREMENT,
+    playerId INT NOT NULL,
+    exerciseId INT NOT NULL,
+    date DATE NOT NULL,
+    score INT,
+    duration TIME,
+    notes VARCHAR(255),
+    FOREIGN KEY (playerId) REFERENCES PLAYER(playerId),
+    FOREIGN KEY (exerciseId) REFERENCES EXERCISE(exerciseId)
+);
+
+-- TRAINING_REQUEST
+CREATE TABLE TRAINING_REQUEST (
+    requestId INT PRIMARY KEY AUTO_INCREMENT,
+    playerId INT NOT NULL,
+    trainerId INT NOT NULL,
+    type ENUM('single','weekly'),
+    date DATE NOT NULL,
+    status ENUM('pending','accepted','declined'),
+    FOREIGN KEY (playerId) REFERENCES PLAYER(playerId),
+    FOREIGN KEY (trainerId) REFERENCES TRAINER(trainerId)
+);
+
+-- TRAINING_FEEDBACK
+CREATE TABLE TRAINING_FEEDBACK (
+    feedbackId INT PRIMARY KEY AUTO_INCREMENT,
+    playerId INT NOT NULL,
+    trainerId INT NOT NULL,
+    planId INT,
+    text VARCHAR(255),
+    date DATE,
+    FOREIGN KEY (playerId) REFERENCES PLAYER(playerId),
+    FOREIGN KEY (trainerId) REFERENCES TRAINER(trainerId),
+    FOREIGN KEY (planId) REFERENCES WEEKLY_PLAN(planId)
+);
+
+-- ENTRY_TEST
+CREATE TABLE ENTRY_TEST (
+    testId INT PRIMARY KEY AUTO_INCREMENT,
+    playerId INT NOT NULL,
+    dateTaken DATE NOT NULL,
+    score INT,
+    FOREIGN KEY (playerId) REFERENCES PLAYER(playerId)
+);
+
+-- ACCOUNT_DELETION_REQUEST
+CREATE TABLE ACCOUNT_DELETION_REQUEST (
+    requestId INT PRIMARY KEY AUTO_INCREMENT,
+    userId INT NOT NULL,
+    dateRequested DATE NOT NULL,
+    status ENUM('pending','approved','rejected'),
+    FOREIGN KEY (userId) REFERENCES USER(userId)
+);
