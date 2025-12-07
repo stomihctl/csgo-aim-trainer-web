@@ -1,5 +1,3 @@
-# csgo-aim-trainer-web
-A fast and lightweight CS:GO-style aim trainer built as a web application. Practice accuracy, reaction time, and flick aim directly in your browser.
 # CS:GO Aim Trainer (Web Version)
 
 A fast, lightweight, and responsive CS:GO-style aim trainer built as a browser-based application.  
